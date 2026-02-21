@@ -23,9 +23,9 @@ export default function TeamGrid({
     <div className={className}>
       <Container>
         {heading && (
-          <h2 className="mb-10 text-center font-heading text-4xl font-semibold uppercase text-brand-red sm:text-6xl md:text-[71px] md:leading-[1.1]">
+          <h3 className="mb-10 text-center font-heading text-4xl font-semibold uppercase text-brand-red sm:text-6xl md:text-[71px]" style={{ lineHeight: "1" }}>
             {heading}
-          </h2>
+          </h3>
         )}
 
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">

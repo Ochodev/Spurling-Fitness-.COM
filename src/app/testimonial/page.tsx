@@ -26,7 +26,7 @@ export default function TestimonialPage() {
       {/* Testimonials Grid */}
       <section className="bg-white py-16 sm:py-20">
         <Container>
-          <h2 className="mb-12 text-center font-heading text-4xl font-semibold uppercase text-brand-dark sm:text-6xl md:text-[76px] md:leading-[1.1]">
+          <h2 className="mb-12 text-center font-heading text-4xl font-semibold uppercase text-brand-dark sm:text-6xl md:text-[76px]" style={{ lineHeight: "1" }}>
             Stories That Inspire
           </h2>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">

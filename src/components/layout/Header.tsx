@@ -28,27 +28,15 @@ export default function Header() {
         <nav className="hidden items-center gap-6 lg:flex">
           <Link
             href="/contact-us/"
-            className="font-heading text-[20px] font-medium text-brand-red hover:text-brand-red-dark transition-colors no-underline"
+            className="font-heading text-[20px] leading-[20px] font-medium text-brand-red hover:text-brand-red-dark transition-colors no-underline"
           >
             Schedule &amp; Pricing
           </Link>
           <Link
-            href="/testimonial/"
-            className="font-heading text-[16px] font-medium text-white hover:text-brand-red transition-colors no-underline"
-          >
-            Stories
-          </Link>
-          <Link
             href="/contact-us/"
-            className="font-heading text-[16px] font-medium text-white hover:text-brand-red transition-colors no-underline"
+            className="inline-block rounded-[5px] border border-brand-red bg-brand-red px-6 py-3 font-heading text-[15px] leading-[15px] font-normal text-white no-underline transition-colors hover:bg-brand-red-dark hover:border-brand-red-dark"
           >
-            Contact Us
-          </Link>
-          <Link
-            href="/contact-us/"
-            className="inline-block rounded-[5px] bg-brand-red px-6 py-3 font-heading text-[15px] font-normal uppercase tracking-wider text-white no-underline transition-colors hover:bg-brand-red-dark"
-          >
-            Talk to a Trainer
+            TALK TO A TRAINER
           </Link>
         </nav>
 

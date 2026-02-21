@@ -14,20 +14,20 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-3">
           {/* Column 1 — About Us */}
           <div>
-            <h3 className="mb-4 font-heading text-lg font-semibold text-brand-red">
+            <h3 className="mb-4 font-poppins text-[19px] font-bold leading-[19px] text-brand-red">
               About Us
             </h3>
-            <p className="text-sm leading-relaxed text-gray-300">
-              Spurling Fitness is Maine&apos;s premier personal training gym
-              for people over 50. We help you move better, feel stronger, and
-              live your best life at our Kennebunk, Scarborough, and South
-              Portland locations.
+            <p className="text-[16px] leading-[24px] text-white">
+              Founded to serve those intimidated by the typical gym, Spurling
+              Fitness is a welcoming space where individuals over 50 can thrive.
+              We focus on personalized coaching, tailored workouts, and a
+              community that motivates and inspires.
             </p>
           </div>
 
           {/* Column 2 — Menu */}
           <div>
-            <h3 className="mb-4 font-heading text-lg font-semibold text-brand-red">
+            <h3 className="mb-4 font-poppins text-[19px] font-bold leading-[19px] text-brand-red">
               Menu
             </h3>
             <nav className="flex flex-col gap-2">
@@ -35,7 +35,7 @@ export default function Footer() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="text-sm text-gray-300 no-underline transition-colors hover:text-brand-red"
+                  className="font-poppins text-[19px] font-normal leading-[20px] text-white no-underline transition-colors hover:text-brand-red"
                 >
                   {link.label}
                 </Link>
@@ -45,7 +45,7 @@ export default function Footer() {
 
           {/* Column 3 — Contacts */}
           <div>
-            <h3 className="mb-4 font-heading text-lg font-semibold text-brand-red">
+            <h3 className="mb-4 font-poppins text-[19px] font-bold leading-[19px] text-brand-red">
               Contacts
             </h3>
 
@@ -107,12 +107,12 @@ export default function Footer() {
       {/* Copyright bar */}
       <Container className="py-4">
         <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">
-          <p className="text-xs text-brand-red">
+          <h3 className="font-poppins text-[17px] font-normal leading-[17px] text-brand-red">
             All Rights Reserved
-          </p>
+          </h3>
           <Link
             href="/privacy-policy/"
-            className="text-xs text-gray-400 no-underline hover:text-brand-red"
+            className="font-poppins text-[17px] leading-[17px] font-normal text-brand-red no-underline rounded-[3px] bg-[#a5a5a5] px-6 py-3 hover:opacity-80 transition-opacity"
           >
             Privacy Policy
           </Link>

@@ -7,65 +7,67 @@ export default function HomePage() {
   return (
     <>
       {/* ──────────── HERO SECTION (Two-column) ──────────── */}
-      <section className="relative min-h-[700px] overflow-hidden bg-brand-dark sm:min-h-[900px]">
-        {/* Decorative vertical brushstroke on left */}
-        <div className="pointer-events-none absolute -top-[370px] left-0 z-[1] hidden h-[1608px] w-[214px] opacity-30 lg:block">
-          <Image
-            src="/images/dividers/vertical-01.svg"
-            alt=""
-            fill
-            className="object-contain"
-          />
-        </div>
-
-        <div className="relative z-[2] mx-auto flex min-h-[700px] max-w-[1200px] flex-col lg:flex-row sm:min-h-[900px]">
-          {/* Left column — Photo */}
-          <div className="relative h-[400px] w-full lg:h-auto lg:w-1/2">
-            <Image
-              src="/images/heroes/dsc-0926.webp"
-              alt="Woman working out with kettlebell"
-              fill
-              className="object-cover"
-              priority
-              sizes="(min-width: 1024px) 50vw, 100vw"
-            />
+      <section className="relative overflow-hidden">
+        {/* ── Hero flex row — full-width, 2-col, overflow hidden ── */}
+        <div className="relative flex min-h-[500px] flex-col overflow-hidden lg:h-[900px] lg:min-h-0 lg:flex-row">
+          {/* Left column — Photo (background-image, like live site) */}
+          <div
+            className="relative h-[400px] shrink-0 lg:h-[900px] lg:w-[638px]"
+            style={{
+              backgroundImage: "url(/images/heroes/dsc-0926.webp)",
+              backgroundSize: "cover",
+              backgroundPosition: "50% 0%",
+              backgroundRepeat: "no-repeat",
+              backgroundColor: "#fab494",
+            }}
+          >
+            {/* Decorative vertical brushstroke — straddles the seam between image and text columns */}
+            <div className="pointer-events-none absolute z-[2] hidden h-[1608px] w-[214px] lg:block" style={{ left: "445px", top: "-406px" }}>
+              <Image
+                src="/images/dividers/vertical-01.svg"
+                alt=""
+                fill
+                className="object-contain"
+              />
+            </div>
+            {/* Bottom SVG divider — positioned at bottom of image column */}
+            <div className="pointer-events-none absolute -bottom-[33px] left-0 z-[2] h-[101px] w-full">
+              <Image
+                src="/images/dividers/brushstroke-05.svg"
+                alt=""
+                fill
+                className="object-fill"
+                sizes="690px"
+              />
+            </div>
           </div>
 
-          {/* Right column — Text */}
-          <div className="flex flex-1 flex-col justify-center px-6 py-16 sm:px-12 lg:py-24">
-            <h1 className="font-heading text-4xl font-semibold uppercase leading-tight text-white sm:text-5xl md:text-[56px] md:leading-[1.1]">
-              Best Personal Training Gym{" "}
-              <span className="text-brand-red">For People Over 50</span>
+          {/* Right column — Text (flex-1, bg white/72%, uniform 120px padding) */}
+          <div className="flex flex-1 shrink-0 flex-col items-start justify-center bg-white/[0.72] px-6 py-16 sm:px-12 lg:p-[120px]">
+            <h1 className="font-heading text-4xl font-semibold leading-[1] text-black sm:text-5xl md:text-[64px] md:leading-[64px]">
+              BEST PERSONAL TRAINING GYM{" "}
+              <span className="text-brand-red">FOR PEOPLE OVER 50</span>
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/90">
+            <p className="text-[16px] leading-[24px] text-brand-dark" style={{ width: "486px", maxWidth: "100%", marginBottom: "14.4px" }}>
               At Spurling Fitness, we help busy individuals over 50 create
               enjoyable fitness routines, establish lasting habits, and achieve
-              results that empower their lives. With three convenient locations in
-              Kennebunk, Scarborough, and South Portland, we specialize in helping
-              adults feel, move, and live better.
+              results that empower their lives. With three convenient locations
+              in <strong>Kennebunk,</strong>{" "}
+              <strong>Scarborough, and South Portland</strong>, we specialize in
+              helping adults feel, move, and live better. Whether you&apos;re
+              looking to lose weight, rehab injuries, or boost your energy,
+              we&apos;re here every step of the way.
             </p>
-            <div className="mt-8">
+            <div className="mt-0" style={{ marginBottom: "30px" }}>
               <Button
                 href="/contact-us/"
                 variant="outlined"
                 size="large"
-                className="!border-brand-red !text-brand-red hover:!bg-brand-red hover:!text-white"
               >
-                Talk to a Trainer!
+                TALK TO A TRAINER!
               </Button>
             </div>
           </div>
-        </div>
-
-        {/* White brushstroke at bottom of hero */}
-        <div className="pointer-events-none absolute -bottom-2 left-1/2 z-[3] h-[80px] w-[690px] -translate-x-1/2 sm:h-[109px]">
-          <Image
-            src="/images/dividers/brushstroke-05.svg"
-            alt=""
-            fill
-            className="object-contain"
-            sizes="690px"
-          />
         </div>
       </section>
 
@@ -89,17 +91,17 @@ export default function HomePage() {
           }}
         />
         <Container className="relative z-[1] text-center">
-          {/* Struggling heading */}
-          <h2 className="font-heading text-3xl font-semibold text-brand-red sm:text-[48px] sm:leading-tight">
+          {/* Struggling heading - styled as p on live site, Kanit 600 48px */}
+          <p className="font-heading text-3xl font-semibold text-brand-red sm:text-[48px] sm:leading-[48px]">
             Struggling to Get Results in a Traditional Gym?
-          </h2>
-          <p className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-white/90">
-            You&apos;re not alone. Most people over 50 feel lost in a big-box gym —
-            unsure what to do, worried about getting hurt, and never seeing real
-            results. At Spurling Fitness, we solve that with personalized coaching,
-            expert programming, and a welcoming community that holds you accountable
-            and celebrates your wins.
           </p>
+          <h2 className="mx-auto mt-6 max-w-3xl font-body text-[16px] font-normal leading-[24px] text-white">
+            At Spurling Fitness, we help adults in Kennebunk, Scarborough, and
+            South Portland get fit with a personal training plan that&apos;s actually
+            built for them. Our mission is to empower you to take control of your
+            health and well-being through coaching, accountability, and a fun
+            community.
+          </h2>
 
           {/* 3-Step Cards with Photo Backgrounds */}
           <div className="mt-16 grid gap-6 md:grid-cols-3">
@@ -108,21 +110,21 @@ export default function HomePage() {
                 number: "1",
                 title: "Book Your Introductory Meeting",
                 description:
-                  "Schedule a free consultation with one of our coaches. We'll learn about your goals, health history, and what you're looking for.",
+                  "We'll meet at one of our three locations to learn more about your goals and challenges.",
                 image: "/images/heroes/dsc-1003.webp",
               },
               {
                 number: "2",
                 title: "We'll Customize Your Program",
                 description:
-                  "Your coach designs a personalized plan based on your unique needs, abilities, and goals. No cookie-cutter programs here.",
+                  "Whether you're new to fitness or looking for a change, we'll tailor your program to your level, goals, and any injuries.",
                 image: "/images/heroes/dsc-1017.webp",
               },
               {
                 number: "3",
                 title: "Try Our Program Risk-Free For 28 Days",
                 description:
-                  "Experience your first session risk-free. See the coaching, feel the community, and decide if Spurling is right for you.",
+                  "Every time you walk in, your workout is ready — with your coach and your community by your side.",
                 image: "/images/heroes/dsc-1042.webp",
               },
             ].map((step) => (
@@ -141,13 +143,13 @@ export default function HomePage() {
                   <div className="absolute inset-0 bg-black/50" />
 
                   <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-                    <span className="font-heading text-[180px] font-bold leading-none text-white/20 sm:text-[200px]">
+                    <h2 className="font-heading text-[200px] font-semibold leading-[200px] text-white/80">
                       {step.number}
-                    </span>
-                    <h3 className="-mt-12 font-heading text-xl font-semibold uppercase text-white sm:text-2xl">
+                    </h2>
+                    <h3 className="-mt-12 font-heading text-[28px] font-semibold uppercase leading-[28px] text-white">
                       {step.title}
                     </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-white/80 sm:text-base">
+                    <p className="mt-3 text-[16px] leading-[24px] text-white">
                       {step.description}
                     </p>
                   </div>
@@ -169,16 +171,18 @@ export default function HomePage() {
         <Container>
           <div className="flex flex-col items-center gap-10 lg:flex-row lg:gap-16">
             <div className="lg:w-1/2">
-              <h2 className="font-heading text-3xl font-semibold text-brand-red sm:text-4xl">
+              <h3 className="font-heading text-3xl font-semibold uppercase text-brand-red sm:text-[59px] sm:leading-[59px]">
                 What Makes Spurling Different?
-              </h2>
-              <p className="mt-6 text-lg leading-relaxed text-brand-gray">
-                Our expert coaches design personalized programs in a small-group format
-                with no more than 6 clients per session. You get the individual
-                attention of personal training with the energy and accountability of a
-                group. We&apos;ve helped hundreds of adults across Southern Maine build
-                strength, lose weight, and gain confidence — regardless of where
-                they&apos;re starting from.
+              </h3>
+              <p className="mt-6 text-[16px] leading-[24px] text-brand-dark">
+                At Spurling Fitness, every session is led by an expert coach
+                who&apos;s focused on <em>your</em> goals — no wandering the gym, no
+                guessing what to do. Our small group format gives you the personal
+                attention of one-on-one training with the motivation of a team.
+                With locations in Kennebunk, Scarborough, and South Portland,
+                we&apos;ve helped hundreds of adults in Southern Maine gain strength,
+                confidence, and lasting results — and we&apos;re ready to help you
+                do the same.
               </p>
               <div className="mt-8">
                 <Button href="/contact-us/" variant="outlined" size="large">
@@ -220,29 +224,29 @@ export default function HomePage() {
           }}
         />
         <Container className="relative z-[1]">
-          <h2 className="mb-12 text-center font-heading text-3xl font-semibold uppercase text-brand-red sm:text-[50px] sm:leading-tight">
-            Personal Training Services
+          <h2 className="mb-12 text-center font-heading text-3xl font-semibold uppercase text-brand-red sm:text-[71px]" style={{ lineHeight: "1" }}>
+            PERSONAL TRAINING SERVICES
           </h2>
           <div className="grid gap-6 md:grid-cols-3">
             {[
               {
                 title: "Private One-On-One Training",
                 description:
-                  "Get individualized attention with our private personal training sessions, tailored specifically to your goals and fitness level.",
+                  "Experience personalized training sessions tailored to your specific needs and goals, ensuring maximum results and continuous support.",
                 image: "/images/heroes/dsc-1003.webp",
                 href: "/what-we-do/private-one-on-one/",
               },
               {
                 title: "Small Group Personal Training",
                 description:
-                  "Experience the best of both worlds — personalized coaching in an energizing small group of no more than 6 people.",
+                  "Enjoy the benefits of a customized workout in a supportive, small group setting. Get individualized routines and guidance, while sharing the experience with others.",
                 image: "/images/heroes/dsc-0906.webp",
                 href: "/what-we-do/small-group-personal-training/",
               },
               {
                 title: "Nutritional Guidance",
                 description:
-                  "Fuel your results with expert nutritional guidance that complements your training program and lifestyle.",
+                  "Get expert nutritional advice to complement your fitness routine, helping you make healthier choices and achieve your wellness goals.",
                 image: "/images/misc/nutrition-food.webp",
                 href: "/what-we-do/nutritional-guidance/",
               },
@@ -262,10 +266,10 @@ export default function HomePage() {
                   />
                   <div className="absolute inset-0 bg-black/50 transition-colors group-hover:bg-black/60" />
                   <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-                    <h3 className="font-heading text-xl font-semibold uppercase text-white sm:text-2xl">
+                    <h2 className="font-heading text-2xl font-semibold uppercase text-white sm:text-[32px] sm:leading-[32px]">
                       {service.title}
-                    </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-white/80">
+                    </h2>
+                    <p className="mt-3 text-[16px] leading-[24px] text-white">
                       {service.description}
                     </p>
                   </div>
@@ -279,8 +283,8 @@ export default function HomePage() {
       {/* ──────────── SUCCESS STORIES (White bg) ──────────── */}
       <section className="py-16 sm:py-20">
         <Container className="text-center">
-          <h2 className="mb-10 font-heading text-4xl font-semibold uppercase text-brand-red sm:text-6xl md:text-[76px] md:leading-[1.1]">
-            Success Stories
+          <h2 className="mb-10 font-heading text-4xl font-semibold uppercase text-brand-red sm:text-6xl md:text-[76px]" style={{ lineHeight: "1" }}>
+            SUCCESS STORIES
           </h2>
 
           <div className="mx-auto mb-8 flex items-center justify-center gap-4">
@@ -359,9 +363,14 @@ export default function HomePage() {
 
         <div className="py-16 sm:py-20">
           <Container>
-            <h2 className="mb-10 text-center text-[42px] font-semibold uppercase text-brand-red sm:text-[54px]" style={{ fontFamily: "var(--font-teko), sans-serif" }}>
-              Contact Us
+            <h2 className="mb-4 text-center font-semibold uppercase text-brand-red text-[42px] sm:text-[54px] sm:leading-[54px]" style={{ fontFamily: "var(--font-teko), sans-serif" }}>
+              CONTACT US
             </h2>
+            <p className="mx-auto mb-10 max-w-lg text-center text-[16px] leading-[24px] text-brand-dark">
+              Unleash your full potential and experience a life-changing
+              transformation with our empowering fitness programs designed to
+              help you achieve your dreams.
+            </p>
 
             <div className="mx-auto max-w-lg rounded-lg bg-white p-8 shadow-lg">
               <ContactForm source="homepage" />

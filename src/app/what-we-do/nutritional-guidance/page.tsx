@@ -29,7 +29,7 @@ export default function NutritionPage() {
 
       <section className="py-16 sm:py-20">
         <Container>
-          <h2 className="mb-6 text-center font-heading text-3xl font-semibold text-brand-red sm:text-4xl">
+          <h2 className="mb-6 text-center font-heading text-3xl font-semibold uppercase text-brand-red sm:text-4xl md:text-[50px]" style={{ lineHeight: "1" }}>
             You Can&apos;t Out-Train a Bad Diet — But You Can Build Habits
             That Last
           </h2>
@@ -70,7 +70,7 @@ export default function NutritionPage() {
               />
             </div>
             <div className="lg:w-1/2">
-              <h2 className="mb-8 font-heading text-2xl font-semibold text-brand-red sm:text-3xl">
+              <h2 className="mb-8 font-heading text-3xl font-semibold uppercase text-brand-red sm:text-4xl md:text-[50px]" style={{ lineHeight: "1" }}>
                 Why Choose Nutritional Guidance at Spurling Fitness
               </h2>
               <div className="space-y-6">

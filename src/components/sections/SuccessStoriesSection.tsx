@@ -11,7 +11,7 @@ export default function SuccessStoriesSection({
   return (
     <section className="bg-white py-16 sm:py-20">
       <Container className="text-center">
-        <h2 className="mb-8 font-heading text-4xl font-semibold uppercase text-brand-red sm:text-6xl md:text-[76px] md:leading-[1.1]">
+        <h2 className="mb-8 font-heading text-4xl font-semibold uppercase text-brand-red sm:text-6xl md:text-[76px]" style={{ lineHeight: "1" }}>
           Success Stories
         </h2>
 

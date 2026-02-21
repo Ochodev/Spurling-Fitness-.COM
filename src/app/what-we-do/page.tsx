@@ -30,9 +30,9 @@ export default function WhatWeDoPage() {
         <Container>
           <div className="flex flex-col items-center gap-10 lg:flex-row lg:gap-16">
             <div className="lg:w-1/2">
-              <h2 className="font-heading text-3xl font-semibold text-brand-red sm:text-4xl">
+              <h3 className="font-heading text-4xl font-semibold uppercase text-brand-red sm:text-5xl md:text-[59px]" style={{ lineHeight: "1" }}>
                 What We Do
-              </h2>
+              </h3>
               <p className="mt-6 text-lg leading-relaxed text-brand-gray">
                 At Spurling Fitness, we understand that fitness is not
                 one-size-fits-all, especially for adults over 50. That&apos;s why we
@@ -92,7 +92,7 @@ export default function WhatWeDoPage() {
                 />
               </div>
               <div className="lg:w-1/2">
-                <h3 className="font-heading text-2xl font-semibold text-brand-red sm:text-3xl">
+                <h3 className="font-heading text-3xl font-semibold uppercase text-brand-red sm:text-4xl md:text-[50px]" style={{ lineHeight: "1" }}>
                   Small Group Personal Training
                 </h3>
                 <p className="mt-4 leading-relaxed text-white/90">
@@ -111,7 +111,7 @@ export default function WhatWeDoPage() {
             {/* Private — Text Left, Image Right */}
             <div className="flex flex-col-reverse items-center gap-8 lg:flex-row lg:gap-12">
               <div className="lg:w-1/2">
-                <h3 className="font-heading text-2xl font-semibold text-brand-red sm:text-3xl">
+                <h3 className="font-heading text-3xl font-semibold uppercase text-brand-red sm:text-4xl md:text-[50px]" style={{ lineHeight: "1" }}>
                   Private Personal Training Tailored Just for You
                 </h3>
                 <p className="mt-4 leading-relaxed text-white/90">
@@ -149,7 +149,7 @@ export default function WhatWeDoPage() {
                 />
               </div>
               <div className="lg:w-1/2">
-                <h3 className="font-heading text-2xl font-semibold text-brand-red sm:text-3xl">
+                <h3 className="font-heading text-3xl font-semibold uppercase text-brand-red sm:text-4xl md:text-[50px]" style={{ lineHeight: "1" }}>
                   Practical Nutrition Guidance That Fits Your Life
                 </h3>
                 <p className="mt-4 leading-relaxed text-white/90">

@@ -7,19 +7,43 @@
   --color-brand-gray: #333333;
   --color-brand-gray-light: #777777;
   --color-brand-gray-lighter: #f5f5f5;
-  --font-sans: var(--font-raleway);
-  --font-heading: var(--font-kanit);
-  --font-teko: var(--font-teko);
 }
 
+/* Font utility classes that reference Next.js font-loader CSS variables.
+   Use !important to beat element-level selectors (h1-h6, a, p, etc.) */
+@utility font-heading {
+  font-family: var(--font-kanit), sans-serif !important;
+}
+
+@utility font-poppins {
+  font-family: var(--font-poppins), sans-serif !important;
+}
+
+@utility font-teko {
+  font-family: var(--font-teko), sans-serif !important;
+}
+
+@utility font-body {
+  font-family: var(--font-raleway), -apple-system, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+/* Base body font: system stack as fallback */
 body {
-  font-family: var(--font-sans), -apple-system, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   color: var(--color-brand-gray);
   background: #ffffff;
+  font-size: 16px;
+  line-height: 24px;
 }
 
+/* Headings default to Kanit */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading), sans-serif;
+  font-family: var(--font-kanit), sans-serif;
+}
+
+/* Body text defaults to Raleway */
+p, li, span, a, label, input, textarea, select, button {
+  font-family: var(--font-raleway), -apple-system, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 /* Hide scrollbar for carousel */

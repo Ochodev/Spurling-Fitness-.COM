@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Kanit, Raleway, Teko } from "next/font/google";
+import { Kanit, Raleway, Teko, Poppins } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import AnnouncementBanner from "@/components/layout/AnnouncementBanner";
@@ -25,6 +25,13 @@ const teko = Teko({
   variable: "--font-teko",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const poppins = Poppins({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["400", "700"],
   display: "swap",
 });
 
@@ -74,7 +81,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body
-        className={`${kanit.variable} ${raleway.variable} ${teko.variable} antialiased`}
+        className={`${kanit.variable} ${raleway.variable} ${teko.variable} ${poppins.variable} antialiased`}
       >
         {/* GTM noscript */}
         <noscript>
