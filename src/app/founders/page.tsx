@@ -6,6 +6,7 @@ import Container from "@/components/layout/Container";
 import ContactForm from "@/components/forms/ContactForm";
 import YouTubeEmbed from "@/components/ui/YouTubeEmbed";
 import SelfHostedVideo from "@/components/ui/SelfHostedVideo";
+import SuccessStoriesSection from "@/components/sections/SuccessStoriesWrapper";
 import { videoTestimonials } from "@/data/testimonials";
 
 export const metadata = generatePageMetadata({
@@ -23,7 +24,7 @@ const benefits = [
   "ACCESS TO EXPERT COACHES SPECIALIZING IN STRENGTH & MOBILITY",
 ];
 
-/** Reusable CTA block — link wrapping heading + sub-text (matches live site pattern) */
+/** Reusable CTA block — matches live site red banner */
 function FoundersCTA({ className = "" }: { className?: string }) {
   return (
     <Link
@@ -44,6 +45,7 @@ function FoundersCTA({ className = "" }: { className?: string }) {
 export default function FoundersPage() {
   return (
     <>
+      {/* ─── 1. HERO ─── */}
       <Hero
         backgroundImage="/images/heroes/dsc-1042.webp"
         headline="Reclaim Your Body at 50+"
@@ -52,7 +54,7 @@ export default function FoundersPage() {
         ctaHref="#waitlist"
       />
 
-      {/* Intro paragraph */}
+      {/* ─── 2. INTRO TEXT ─── */}
       <section className="bg-white py-12 sm:py-16">
         <Container>
           <p className="mx-auto max-w-3xl text-center text-lg leading-relaxed text-brand-gray">
@@ -62,14 +64,14 @@ export default function FoundersPage() {
         </Container>
       </section>
 
-      {/* CTA */}
+      {/* ─── 3. CTA ─── */}
       <section className="bg-white pb-8">
         <Container>
           <FoundersCTA className="mx-auto max-w-xl" />
         </Container>
       </section>
 
-      {/* COMFORTABLE / EXPERIENCE / COMMUNITY video row */}
+      {/* ─── 4. THREE SELF-HOSTED VIDEOS ─── */}
       <section className="bg-white pb-8 sm:pb-12">
         <Container>
           <div className="grid gap-6 sm:grid-cols-3">
@@ -89,13 +91,17 @@ export default function FoundersPage() {
               label="COMMUNITY."
             />
           </div>
-          <div className="mt-8">
-            <FoundersCTA className="mx-auto max-w-xl" />
-          </div>
         </Container>
       </section>
 
-      {/* Why Join the Waitlist — Dark section */}
+      {/* ─── 5. CTA ─── */}
+      <section className="bg-white pb-12">
+        <Container>
+          <FoundersCTA className="mx-auto max-w-xl" />
+        </Container>
+      </section>
+
+      {/* ─── 6. WHY JOIN THE WAITLIST (dark) ─── */}
       <section className="bg-brand-dark py-16 sm:py-20">
         <Container>
           <div className="flex flex-col items-center gap-10 lg:flex-row lg:gap-16">
@@ -149,19 +155,19 @@ export default function FoundersPage() {
         </Container>
       </section>
 
-      {/* Success Stories */}
-      <section className="py-16 sm:py-20">
-        <Container>
-          <h2 className="mb-12 text-center font-heading text-4xl font-semibold uppercase text-brand-dark sm:text-6xl md:text-[76px] md:leading-[1.1]">
-            Success Stories
-          </h2>
+      {/* ─── 7. SUCCESS STORIES — Google Reviews carousel ─── */}
+      <SuccessStoriesSection />
 
+      {/* ─── 8. YOUTUBE VIDEO TESTIMONIALS — carousel-style grid ─── */}
+      <section className="bg-white py-16 sm:py-20">
+        <Container>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {videoTestimonials.map((video) => (
               <YouTubeEmbed
                 key={video.id}
                 videoId={video.videoId}
                 title={video.name}
+                poster={video.poster}
               />
             ))}
           </div>
@@ -169,21 +175,35 @@ export default function FoundersPage() {
           <div className="mt-10 text-center">
             <FoundersCTA className="mx-auto max-w-xl" />
           </div>
-
-          <div className="mt-6 text-center">
-            <Link
-              href="/testimonial/"
-              className="text-sm font-semibold text-brand-red transition-colors hover:text-brand-dark"
-            >
-              VIEW MORE TESTIMONIALS
-            </Link>
-          </div>
         </Container>
       </section>
 
-      {/* Waitlist Form */}
+      {/* ─── 9. SUCCESS STORIES — Google Reviews carousel (2nd instance) ─── */}
+      <SuccessStoriesSection />
+
+      {/* ─── 10. VIEW MORE TESTIMONIALS ─── */}
+      <section className="bg-white pb-12 text-center">
+        <Container>
+          <Link
+            href="/testimonial/"
+            className="inline-block rounded bg-brand-dark px-6 py-3 text-sm font-semibold uppercase text-white transition-colors hover:bg-brand-red"
+          >
+            View More Testimonials
+          </Link>
+        </Container>
+      </section>
+
+      {/* ─── 11. CONTACT US / WAITLIST FORM ─── */}
       <section id="waitlist" className="bg-brand-dark py-16 sm:py-20">
         <Container>
+          <h2 className="mb-8 text-center font-heading text-3xl font-semibold uppercase text-white sm:text-4xl">
+            Contact Us
+          </h2>
+          <p className="mx-auto mb-10 max-w-2xl text-center text-gray-300">
+            Unleash your full potential and experience a life-changing
+            transformation at Spurling. Fill out the form below and we will send
+            you information on scheduling and pricing.
+          </p>
           <div className="mx-auto max-w-lg rounded-lg bg-white p-8 shadow-lg">
             <ContactForm
               source="founders-page"

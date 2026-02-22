@@ -134,6 +134,7 @@ export default function WaitlistPage() {
                 key={video.id}
                 videoId={video.videoId}
                 title={video.name}
+                poster={video.poster}
               />
             ))}
           </div>

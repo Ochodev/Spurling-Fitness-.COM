@@ -6,17 +6,20 @@ import Image from "next/image";
 interface YouTubeEmbedProps {
   videoId: string;
   title?: string;
+  /** Custom poster image path; falls back to YouTube thumbnail */
+  poster?: string;
   className?: string;
 }
 
 export default function YouTubeEmbed({
   videoId,
   title = "Video",
+  poster,
   className = "",
 }: YouTubeEmbedProps) {
   const [playing, setPlaying] = useState(false);
   const [thumbSrc, setThumbSrc] = useState(
-    `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+    poster ?? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
   );
 
   if (playing) {
@@ -45,11 +48,13 @@ export default function YouTubeEmbed({
         fill
         className="object-cover transition-opacity group-hover:opacity-80"
         sizes="(max-width: 768px) 100vw, 50vw"
-        onError={() =>
-          setThumbSrc(
-            `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
-          )
-        }
+        onError={() => {
+          if (!poster) {
+            setThumbSrc(
+              `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+            );
+          }
+        }}
       />
       {/* Play button overlay */}
       <div className="absolute inset-0 flex items-center justify-center">
