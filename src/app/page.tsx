@@ -2,6 +2,7 @@ import Image from "next/image";
 import Container from "@/components/layout/Container";
 import Button from "@/components/ui/Button";
 import ContactForm from "@/components/forms/ContactForm";
+import SuccessStoriesSection from "@/components/sections/SuccessStoriesSection";
 
 export default function HomePage() {
   return (
@@ -281,19 +282,7 @@ export default function HomePage() {
       </section>
 
       {/* ──────────── SUCCESS STORIES (White bg) ──────────── */}
-      <section className="py-16 sm:py-20">
-        <Container className="text-center">
-          <h2 className="mb-10 font-heading text-4xl font-semibold uppercase text-brand-red sm:text-6xl md:text-[76px]" style={{ lineHeight: "1" }}>
-            SUCCESS STORIES
-          </h2>
-
-          <div className="mt-10">
-            <Button href="/testimonial/" variant="outlined" size="large">
-              VIEW MORE TESTIMONIALS
-            </Button>
-          </div>
-        </Container>
-      </section>
+      <SuccessStoriesSection />
 
       {/* ──────────── CONTACT US (Dark Section with Orange Grunge Divider) ──────────── */}
       <section className="bg-brand-dark">
