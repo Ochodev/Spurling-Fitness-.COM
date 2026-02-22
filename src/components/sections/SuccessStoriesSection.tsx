@@ -192,44 +192,41 @@ function useDragToScroll(scrollRef: React.RefObject<HTMLDivElement | null>) {
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollStart = useRef(0);
-  const hasMoved = useRef(false);
+  const dragDistance = useRef(0);
 
-  const onPointerDown = useCallback(
-    (e: React.PointerEvent) => {
+  const onMouseDown = useCallback(
+    (e: React.MouseEvent) => {
       const el = scrollRef.current;
       if (!el) return;
-      // Only respond to mouse (touch scrolls natively)
-      if (e.pointerType === "touch") return;
       isDragging.current = true;
-      hasMoved.current = false;
+      dragDistance.current = 0;
       startX.current = e.clientX;
       scrollStart.current = el.scrollLeft;
-      el.setPointerCapture(e.pointerId);
       el.style.cursor = "grabbing";
       el.style.scrollSnapType = "none";
     },
     [scrollRef]
   );
 
-  const onPointerMove = useCallback(
-    (e: React.PointerEvent) => {
+  const onMouseMove = useCallback(
+    (e: React.MouseEvent) => {
       if (!isDragging.current) return;
+      e.preventDefault();
       const el = scrollRef.current;
       if (!el) return;
       const dx = e.clientX - startX.current;
-      if (Math.abs(dx) > 5) hasMoved.current = true;
+      dragDistance.current = Math.abs(dx);
       el.scrollLeft = scrollStart.current - dx;
     },
     [scrollRef]
   );
 
-  const onPointerUp = useCallback(
-    (e: React.PointerEvent) => {
+  const onMouseUp = useCallback(
+    () => {
       if (!isDragging.current) return;
       isDragging.current = false;
       const el = scrollRef.current;
       if (!el) return;
-      el.releasePointerCapture(e.pointerId);
       el.style.cursor = "";
       // Re-enable snap after a tick so the snap animation kicks in
       requestAnimationFrame(() => {
@@ -239,10 +236,24 @@ function useDragToScroll(scrollRef: React.RefObject<HTMLDivElement | null>) {
     [scrollRef]
   );
 
-  /** True if the pointer moved significantly — used to suppress click on drag */
-  const didDrag = useCallback(() => hasMoved.current, []);
+  const onMouseLeave = useCallback(
+    () => {
+      if (!isDragging.current) return;
+      isDragging.current = false;
+      const el = scrollRef.current;
+      if (!el) return;
+      el.style.cursor = "";
+      requestAnimationFrame(() => {
+        el.style.scrollSnapType = "";
+      });
+    },
+    [scrollRef]
+  );
 
-  return { onPointerDown, onPointerMove, onPointerUp, didDrag };
+  /** True if the pointer moved significantly — used to suppress click on drag */
+  const didDrag = useCallback(() => dragDistance.current > 5, []);
+
+  return { onMouseDown, onMouseMove, onMouseUp, onMouseLeave, didDrag };
 }
 
 /* ── Carousel with swipe, arrow navigation + dots ── */
@@ -266,7 +277,7 @@ export default function SuccessStoriesCarousel({
   const cardWidth = 356;
   const totalDots = Math.max(1, reviews.length - 2);
 
-  const { onPointerDown, onPointerMove, onPointerUp, didDrag } =
+  const { onMouseDown, onMouseMove, onMouseUp, onMouseLeave, didDrag } =
     useDragToScroll(scrollRef);
 
   const updateScrollState = useCallback(() => {
@@ -351,10 +362,10 @@ export default function SuccessStoriesCarousel({
         <div className="relative -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
           <div
             ref={scrollRef}
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={onPointerUp}
-            onPointerCancel={onPointerUp}
+            onMouseDown={onMouseDown}
+            onMouseMove={onMouseMove}
+            onMouseUp={onMouseUp}
+            onMouseLeave={onMouseLeave}
             className="flex cursor-grab gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide touch-pan-x"
           >
             {reviews.map((review, idx) => (
