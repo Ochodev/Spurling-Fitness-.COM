@@ -5,7 +5,6 @@ import Hero from "@/components/sections/Hero";
 import Container from "@/components/layout/Container";
 import ContactForm from "@/components/forms/ContactForm";
 import YouTubeEmbed from "@/components/ui/YouTubeEmbed";
-import ContactFooterSection from "@/components/sections/ContactFooterSection";
 import { videoTestimonials } from "@/data/testimonials";
 
 export const metadata = generatePageMetadata({
@@ -47,40 +46,18 @@ export default function FoundersPage() {
       <Hero
         backgroundImage="/images/heroes/dsc-1042.webp"
         headline="Reclaim Your Body at 50+"
-        subheadline="Finally... a personal training gym in South Portland that UNDERSTANDS how the 50+ body actually works."
+        subheadline="Move Without Pain. Feel Energetic Again. Enjoy Life on YOUR Terms."
         ctaText="Only 15 Spots Remain"
         ctaHref="#waitlist"
       />
 
-      {/* 3-Image Row — COMFORTABLE / EXPERIENCE / COMMUNITY */}
+      {/* Intro paragraph */}
       <section className="bg-white py-12 sm:py-16">
         <Container>
-          <div className="grid gap-4 sm:grid-cols-3">
-            {[
-              { label: "COMFORTABLE.", image: "/images/heroes/dsc-0926.webp" },
-              { label: "EXPERIENCE.", image: "/images/heroes/dsc-1017.webp" },
-              { label: "COMMUNITY.", image: "/images/heroes/dsc-1034.webp" },
-            ].map((item) => (
-              <div
-                key={item.label}
-                className="relative h-[300px] overflow-hidden rounded-lg sm:h-[350px]"
-              >
-                <Image
-                  src={item.image}
-                  alt={item.label}
-                  fill
-                  className="object-cover"
-                  sizes="(min-width: 640px) 33vw, 100vw"
-                />
-                <div className="absolute inset-0 bg-black/30" />
-                <div className="absolute inset-x-0 bottom-0 p-4">
-                  <p className="font-heading text-2xl font-semibold uppercase text-white sm:text-3xl">
-                    {item.label}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <p className="mx-auto max-w-3xl text-center text-lg leading-relaxed text-brand-gray">
+            Finally... a personal training gym in South Portland that{" "}
+            <strong>UNDERSTANDS</strong> how the 50+ body actually works.
+          </p>
         </Container>
       </section>
 
@@ -145,19 +122,6 @@ export default function FoundersPage() {
         </Container>
       </section>
 
-      {/* Inline Form Section */}
-      <section id="waitlist" className="bg-brand-dark py-16 sm:py-20">
-        <Container>
-          <div className="mx-auto max-w-lg rounded-lg bg-white p-8 shadow-lg">
-            <ContactForm
-              source="founders-page"
-              locationDefault="south-portland"
-              submitLabel="Lock In Your Founding Membership"
-            />
-          </div>
-        </Container>
-      </section>
-
       {/* Success Stories */}
       <section className="py-16 sm:py-20">
         <Container>
@@ -178,15 +142,99 @@ export default function FoundersPage() {
           <div className="mt-10 text-center">
             <FoundersCTA className="mx-auto max-w-xl" />
           </div>
+
+          <div className="mt-6 text-center">
+            <Link
+              href="/testimonial/"
+              className="text-sm font-semibold text-brand-red transition-colors hover:text-brand-dark"
+            >
+              VIEW MORE TESTIMONIALS
+            </Link>
+          </div>
         </Container>
       </section>
 
-      {/* Contact Footer */}
-      <ContactFooterSection
-        source="founders-page"
-        locationDefault="south-portland"
-        formSubheading="Unleash your full potential and experience a life-changing transformation with our empowering fitness programs designed to help you achieve your dreams."
-      />
+      {/* Founder Profile — Joseph Davenport */}
+      <section className="bg-[#f5f5f5] py-16 sm:py-20">
+        <Container>
+          <div className="flex flex-col items-start gap-10 lg:flex-row lg:gap-16">
+            <div className="relative h-[500px] w-full shrink-0 overflow-hidden rounded-lg lg:h-[600px] lg:w-[380px]">
+              <Image
+                src="/images/team/joseph-davenport.webp"
+                alt="Joseph Davenport – Coach at Spurling Fitness"
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 380px, 100vw"
+              />
+            </div>
+            <div>
+              <h2 className="mb-6 font-heading text-3xl font-semibold uppercase text-brand-dark sm:text-4xl md:text-[50px]" style={{ lineHeight: "1.1" }}>
+                Joseph Davenport
+              </h2>
+              <div className="space-y-4 text-[16px] leading-relaxed text-brand-gray">
+                <p>
+                  I&apos;m a coach who believes movement is a doorway to
+                  confidence, resilience, and unlocking the strength people
+                  don&apos;t always see in themselves. The foundation of who I am
+                  was built over 21 years of service in the U.S. Army, where I
+                  served as a 92Y Supply Specialist, a Drill Instructor, and
+                  later as an H2F (Holistic Health and Fitness) Integrator. Those
+                  experiences shaped my leadership, discipline, and ability to
+                  motivate others through challenge and growth. They taught me
+                  how to bring structure when it&apos;s needed, encouragement
+                  when it matters most, and an unwavering belief that people can
+                  go further than they think.
+                </p>
+                <p>
+                  My journey deepened through Mixed Martial Arts, where I learned
+                  to understand movement, power, balance, and mental toughness on
+                  a whole different level. MMA reinforced my belief that progress
+                  is built through consistency and that strength is as much a
+                  mindset as it is a physical quality. It gave me a more detailed
+                  eye for mechanics and an appreciation for what the human
+                  body — and spirit — can overcome.
+                </p>
+                <p>
+                  Today, I bring all of that experience into my work as a
+                  movement-focused coach. With a bachelor&apos;s in athletic
+                  training and a background in rehabilitation support, and
+                  corrective exercise, I take a hands-on, detailed, and
+                  supportive approach to helping people move better and feel more
+                  confident. I love breaking down movement, guiding people
+                  through setbacks, and watching them discover their capability
+                  piece by piece.
+                </p>
+                <p>
+                  My mission is simple: to help people rise, to move with
+                  confidence, think with strength, and build the kind of
+                  resilience that transforms their life inside and outside the
+                  gym. Coaching isn&apos;t just my profession; it&apos;s my
+                  passion, my purpose, and the work I&apos;m proud to bring into
+                  every person I support.
+                </p>
+              </div>
+              <p className="mt-8 border-l-4 border-brand-red pl-4 text-lg italic text-brand-dark">
+                &ldquo;Desire and imagination have the potential to position a
+                person for greatness&rdquo;{" "}
+                <span className="not-italic text-brand-gray">– Eric Thomas</span>
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Waitlist Form */}
+      <section id="waitlist" className="bg-brand-dark py-16 sm:py-20">
+        <Container>
+          <div className="mx-auto max-w-lg rounded-lg bg-white p-8 shadow-lg">
+            <ContactForm
+              source="founders-page"
+              locationDefault="south-portland"
+              submitLabel="Lock In Your Founding Membership"
+            />
+          </div>
+        </Container>
+      </section>
     </>
   );
 }
