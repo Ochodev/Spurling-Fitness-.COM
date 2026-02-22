@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { generatePageMetadata } from "@/lib/metadata";
 import Hero from "@/components/sections/Hero";
 import Container from "@/components/layout/Container";
@@ -6,11 +7,12 @@ import Button from "@/components/ui/Button";
 import SuccessStoriesSection from "@/components/sections/SuccessStoriesWrapper";
 import ContactFooterSection from "@/components/sections/ContactFooterSection";
 import { services } from "@/data/services";
+import { locations } from "@/data/locations";
 
 const service = services.find((s) => s.id === "private-one-on-one")!;
 
 export const metadata = generatePageMetadata({
-  title: "Private One-On-One",
+  title: "Private One-on-One Personal Training in Maine",
   description: service.shortDescription,
   path: "/what-we-do/private-one-on-one/",
 });
@@ -20,7 +22,7 @@ export default function PrivateTrainingPage() {
     <>
       <Hero
         backgroundImage={service.image}
-        headline="Private Personal Training in Kennebunk & Scarborough Designed Just for You"
+        headline="Private Personal Training in Kennebunk, Scarborough & South Portland"
         subheadline="Personalized training sessions with our expert coaches provide an amazing fitness experience tailored to your unique goals and needs. Our one-on-one sessions ensure that every workout is designed specifically for you, maximizing efficiency and results."
         ctaText="Talk to a Trainer!"
         ctaHref="/contact-us/"
@@ -94,6 +96,37 @@ export default function PrivateTrainingPage() {
                 </Button>
               </div>
             </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Available at All 3 Locations */}
+      <section className="bg-[#f5f5f5] py-16 sm:py-20">
+        <Container>
+          <h2 className="mb-4 text-center font-heading text-3xl font-semibold text-brand-dark sm:text-4xl">
+            Available at All 3 Locations
+          </h2>
+          <p className="mx-auto mb-10 max-w-2xl text-center text-brand-gray">
+            Private one-on-one personal training is offered at every Spurling Fitness location across Southern Maine.
+          </p>
+          <div className="grid gap-6 sm:grid-cols-3">
+            {locations.map((loc) => (
+              <Link
+                key={loc.id}
+                href={`/what-we-do/private-one-on-one/${loc.id}/`}
+                className="group rounded-lg bg-white p-6 shadow-sm transition hover:shadow-md"
+              >
+                <h3 className="mb-1 font-heading text-xl font-semibold text-brand-dark group-hover:text-brand-red">
+                  {loc.name}
+                </h3>
+                <p className="mb-3 text-sm text-brand-gray">
+                  {loc.address}, {loc.city}, {loc.state} {loc.zip}
+                </p>
+                <span className="text-sm font-semibold text-brand-red">
+                  Learn more &rarr;
+                </span>
+              </Link>
+            ))}
           </div>
         </Container>
       </section>

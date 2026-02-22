@@ -38,6 +38,9 @@ export interface Location {
   city: string;
   state: string;
   zip: string;
+  lat: number;
+  lng: number;
+  placeId: string;
   mapEmbedUrl: string;
   directionsUrl: string;
   mapUrl: string;

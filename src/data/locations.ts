@@ -8,6 +8,9 @@ export const locations: Location[] = [
     city: "Kennebunk",
     state: "ME",
     zip: "04043",
+    lat: 43.4080817,
+    lng: -70.5638155,
+    placeId: "ChIJazfD8tGtskwRRYQLLKBfb-I",
     mapEmbedUrl:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2926.123!2d-70.5432!3d43.3889!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cb29c8f8c0a6f3d%3A0x7f8b8e8d8a8b8c8d!2s1%20Alewive%20Park%20Rd%2C%20Kennebunk%2C%20ME%2004043!5e0!3m2!1sen!2sus!4v1234567890",
     directionsUrl:
@@ -21,6 +24,9 @@ export const locations: Location[] = [
     city: "Scarborough",
     state: "ME",
     zip: "04074",
+    lat: 43.5981077,
+    lng: -70.3604024,
+    placeId: "ChIJeeHVzWKZskwRgwyFSFwxKU0",
     mapEmbedUrl:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2926.123!2d-70.3432!3d43.5889!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cb29c8f8c0a6f3d%3A0x7f8b8e8d8a8b8c8e!2s10%20Market%20St%2C%20Scarborough%2C%20ME%2004074!5e0!3m2!1sen!2sus!4v1234567890",
     directionsUrl:
@@ -34,6 +40,9 @@ export const locations: Location[] = [
     city: "South Portland",
     state: "ME",
     zip: "04106",
+    lat: 43.634134,
+    lng: -70.252508,
+    placeId: "ChIJ4YrbeBafskwRGRlo0jb6eDc",
     mapEmbedUrl:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2926.123!2d-70.2832!3d43.6389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cb29c8f8c0a6f3d%3A0x7f8b8e8d8a8b8c8f!2s239%20Ocean%20St%2C%20South%20Portland%2C%20ME%2004106!5e0!3m2!1sen!2sus!4v1234567890",
     directionsUrl:

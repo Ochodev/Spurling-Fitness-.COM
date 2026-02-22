@@ -30,6 +30,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/locations/kennebunk/",
     "/locations/scarborough/",
     "/locations/south-portland/",
+    "/what-we-do/small-group-personal-training/kennebunk/",
+    "/what-we-do/small-group-personal-training/scarborough/",
+    "/what-we-do/small-group-personal-training/south-portland/",
+    "/what-we-do/private-one-on-one/kennebunk/",
+    "/what-we-do/private-one-on-one/scarborough/",
+    "/what-we-do/private-one-on-one/south-portland/",
+    "/what-we-do/nutritional-guidance/kennebunk/",
+    "/what-we-do/nutritional-guidance/scarborough/",
+    "/what-we-do/nutritional-guidance/south-portland/",
+    "/what-we-do/sweat-hiit-workout-classes/kennebunk/",
+    "/what-we-do/sweat-hiit-workout-classes/scarborough/",
+    "/what-we-do/sweat-hiit-workout-classes/south-portland/",
   ];
 
   return routes.map((route) => ({
