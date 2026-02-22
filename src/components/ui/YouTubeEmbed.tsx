@@ -15,6 +15,9 @@ export default function YouTubeEmbed({
   className = "",
 }: YouTubeEmbedProps) {
   const [playing, setPlaying] = useState(false);
+  const [thumbSrc, setThumbSrc] = useState(
+    `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+  );
 
   if (playing) {
     return (
@@ -37,11 +40,16 @@ export default function YouTubeEmbed({
       aria-label={`Play ${title}`}
     >
       <Image
-        src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+        src={thumbSrc}
         alt={title}
         fill
         className="object-cover transition-opacity group-hover:opacity-80"
         sizes="(max-width: 768px) 100vw, 50vw"
+        onError={() =>
+          setThumbSrc(
+            `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+          )
+        }
       />
       {/* Play button overlay */}
       <div className="absolute inset-0 flex items-center justify-center">

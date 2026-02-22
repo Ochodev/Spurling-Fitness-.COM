@@ -25,13 +25,13 @@ export const testimonials: Testimonial[] = [
 ];
 
 export const videoTestimonials: { id: string; name: string; videoId: string }[] = [
-  { id: "video-1", name: "Success Story", videoId: "sBRGg-CLkmw" },
-  { id: "video-2", name: "Success Story", videoId: "ci0SHiva5ac" },
-  { id: "video-3", name: "Success Story", videoId: "RCeaCc6wK8k" },
-  { id: "video-4", name: "Success Story", videoId: "0NIaNQSe2is" },
+  { id: "video-1", name: "Success Story", videoId: "HSk_HYUHYqQ" },
+  { id: "video-2", name: "Success Story", videoId: "0NIaNQSe2is" },
+  { id: "video-3", name: "Success Story", videoId: "Wi6q-taJY1E" },
+  { id: "video-4", name: "Success Story", videoId: "sBRGg-CLkmw" },
   { id: "video-5", name: "Success Story", videoId: "ndg04L100IE" },
-  { id: "video-6", name: "Success Story", videoId: "HSk_HYUHYqQ" },
-  { id: "video-7", name: "Success Story", videoId: "Wi6q-taJY1E" },
-  { id: "video-8", name: "Success Story", videoId: "Q-OIGp8MW5U" },
+  { id: "video-6", name: "Success Story", videoId: "Q-OIGp8MW5U" },
+  { id: "video-7", name: "Success Story", videoId: "ci0SHiva5ac" },
+  { id: "video-8", name: "Success Story", videoId: "RCeaCc6wK8k" },
   { id: "video-9", name: "Success Story", videoId: "EJ9eHCT-fkg" },
 ];

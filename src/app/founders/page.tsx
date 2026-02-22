@@ -5,6 +5,7 @@ import Hero from "@/components/sections/Hero";
 import Container from "@/components/layout/Container";
 import ContactForm from "@/components/forms/ContactForm";
 import YouTubeEmbed from "@/components/ui/YouTubeEmbed";
+import SelfHostedVideo from "@/components/ui/SelfHostedVideo";
 import { videoTestimonials } from "@/data/testimonials";
 
 export const metadata = generatePageMetadata({
@@ -65,6 +66,32 @@ export default function FoundersPage() {
       <section className="bg-white pb-8">
         <Container>
           <FoundersCTA className="mx-auto max-w-xl" />
+        </Container>
+      </section>
+
+      {/* COMFORTABLE / EXPERIENCE / COMMUNITY video row */}
+      <section className="bg-white pb-8 sm:pb-12">
+        <Container>
+          <div className="grid gap-6 sm:grid-cols-3">
+            <SelfHostedVideo
+              src="https://spurlingfitness.com/wp-content/uploads/video-5-spurling-5mp4.mp4"
+              poster="https://spurlingfitness.com/wp-content/uploads/CleanShot-2025-11-06-at-16.56.02.png"
+              label="COMFORTABLE"
+            />
+            <SelfHostedVideo
+              src="https://spurlingfitness.com/wp-content/uploads/video-4-spurling-4.mp4"
+              poster="https://spurlingfitness.com/wp-content/uploads/CleanShot-2025-11-06-at-16.54.44.png"
+              label="EXPERIENCE."
+            />
+            <SelfHostedVideo
+              src="https://spurlingfitness.com/wp-content/uploads/video-2-spurling-2mp4.mp4"
+              poster="https://spurlingfitness.com/wp-content/uploads/CleanShot-2025-11-06-at-17.00.32.png"
+              label="COMMUNITY."
+            />
+          </div>
+          <div className="mt-8">
+            <FoundersCTA className="mx-auto max-w-xl" />
+          </div>
         </Container>
       </section>
 
