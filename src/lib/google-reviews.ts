@@ -118,8 +118,10 @@ export async function fetchAllLocationReviews(): Promise<AllReviewsResult> {
     };
   }
 
-  // Combine all reviews
-  const allReviews = validResults.flatMap((r) => r.reviews);
+  // Combine all reviews, only include 5-star reviews
+  const allReviews = validResults
+    .flatMap((r) => r.reviews)
+    .filter((r) => r.rating === 5);
 
   // Calculate weighted average rating
   const totalReviews = validResults.reduce((sum, r) => sum + r.totalReviews, 0);

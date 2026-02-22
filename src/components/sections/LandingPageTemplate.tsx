@@ -2,7 +2,7 @@ import Image from "next/image";
 import Hero from "@/components/sections/Hero";
 import Container from "@/components/layout/Container";
 import ContactForm from "@/components/forms/ContactForm";
-import SuccessStoriesSection from "@/components/sections/SuccessStoriesSection";
+import SuccessStoriesSection from "@/components/sections/SuccessStoriesWrapper";
 
 interface LandingPageTemplateProps {
   heroImage: string;

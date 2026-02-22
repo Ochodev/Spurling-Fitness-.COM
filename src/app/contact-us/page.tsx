@@ -3,7 +3,7 @@ import { generatePageMetadata } from "@/lib/metadata";
 import Hero from "@/components/sections/Hero";
 import Container from "@/components/layout/Container";
 import ContactForm from "@/components/forms/ContactForm";
-import SuccessStoriesSection from "@/components/sections/SuccessStoriesSection";
+import SuccessStoriesSection from "@/components/sections/SuccessStoriesWrapper";
 import ContactFooterSection from "@/components/sections/ContactFooterSection";
 import { locations } from "@/data/locations";
 import { BRAND } from "@/lib/constants";

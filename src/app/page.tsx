@@ -2,7 +2,7 @@ import Image from "next/image";
 import Container from "@/components/layout/Container";
 import Button from "@/components/ui/Button";
 import ContactForm from "@/components/forms/ContactForm";
-import SuccessStoriesSection from "@/components/sections/SuccessStoriesSection";
+import SuccessStoriesSection from "@/components/sections/SuccessStoriesWrapper";
 
 export default function HomePage() {
   return (

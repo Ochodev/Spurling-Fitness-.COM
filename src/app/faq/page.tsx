@@ -1,5 +1,5 @@
 import { generatePageMetadata } from "@/lib/metadata";
-import SuccessStoriesSection from "@/components/sections/SuccessStoriesSection";
+import SuccessStoriesSection from "@/components/sections/SuccessStoriesWrapper";
 import ContactFooterSection from "@/components/sections/ContactFooterSection";
 import FaqSchema from "@/components/seo/FaqSchema";
 

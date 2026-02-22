@@ -1,7 +1,7 @@
 import Container from "@/components/layout/Container";
 import Hero from "@/components/sections/Hero";
 import ContactForm from "@/components/forms/ContactForm";
-import SuccessStoriesSection from "@/components/sections/SuccessStoriesSection";
+import SuccessStoriesSection from "@/components/sections/SuccessStoriesWrapper";
 import ContactFooterSection from "@/components/sections/ContactFooterSection";
 import JsonLd from "@/components/seo/JsonLd";
 import { BRAND } from "@/lib/constants";
