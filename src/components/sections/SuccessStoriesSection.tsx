@@ -49,7 +49,6 @@ function ReviewModal({
   review: GoogleReview;
   onClose: () => void;
 }) {
-  // Close on Escape key
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -70,15 +69,11 @@ function ReviewModal({
       aria-modal="true"
       aria-label={`Review by ${review.authorName}`}
     >
-      {/* Backdrop */}
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-
-      {/* Modal content */}
       <div
-        className="relative w-full max-w-lg rounded-2xl bg-white p-8 shadow-2xl"
+        className="relative max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white p-8 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close button */}
         <button
           onClick={onClose}
           aria-label="Close review"
@@ -89,22 +84,18 @@ function ReviewModal({
           </svg>
         </button>
 
-        {/* Stars */}
         <div className="mb-4 flex items-center gap-0.5">
           {[1, 2, 3, 4, 5].map((i) => (
             <Star key={i} />
           ))}
         </div>
 
-        {/* Full review text */}
         <p className="mb-6 text-[16px] leading-relaxed text-brand-dark">
           &ldquo;{review.text}&rdquo;
         </p>
 
-        {/* Divider */}
         <div className="mb-5 border-t border-gray-200" />
 
-        {/* Author */}
         <div className="flex items-center gap-3">
           <AuthorAvatar review={review} size="lg" />
           <div>
@@ -136,7 +127,7 @@ function ReviewModal({
   );
 }
 
-/* ── Single review card ── */
+/* ── Single review card (div, not button — for swipe compatibility) ── */
 function ReviewCard({
   review,
   onClick,
@@ -147,37 +138,40 @@ function ReviewCard({
   const isTruncated = review.text.length > 220;
 
   return (
-    <button
+    <div
+      role="button"
+      tabIndex={0}
       onClick={onClick}
-      className="flex w-[320px] shrink-0 cursor-pointer flex-col rounded-xl border border-gray-200 bg-white p-7 text-left shadow-sm transition-shadow hover:shadow-md snap-start sm:w-[340px]"
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick();
+        }
+      }}
+      className="flex w-[320px] shrink-0 cursor-pointer select-none flex-col rounded-xl border border-gray-200 bg-white p-7 text-left shadow-sm transition-shadow hover:shadow-md snap-start sm:w-[340px]"
       aria-label={`Read full review by ${review.authorName}`}
     >
-      {/* Stars */}
       <div className="mb-5 flex items-center gap-0.5">
         {[1, 2, 3, 4, 5].map((i) => (
           <Star key={i} />
         ))}
       </div>
 
-      {/* Review text */}
-      <p className="mb-6 flex-1 text-[15px] leading-relaxed text-brand-dark">
+      <p className="pointer-events-none mb-6 flex-1 text-[15px] leading-relaxed text-brand-dark">
         &ldquo;{isTruncated
           ? `${review.text.slice(0, 220)}...`
           : review.text}&rdquo;
       </p>
 
-      {/* Read more hint */}
       {isTruncated && (
-        <span className="mb-4 text-xs font-semibold text-brand-red">
+        <span className="pointer-events-none mb-4 text-xs font-semibold text-brand-red">
           Read full review →
         </span>
       )}
 
-      {/* Divider */}
-      <div className="mb-5 border-t border-gray-200" />
+      <div className="pointer-events-none mb-5 border-t border-gray-200" />
 
-      {/* Author */}
-      <div className="flex items-center gap-3">
+      <div className="pointer-events-none flex items-center gap-3">
         <AuthorAvatar review={review} />
         <div>
           <p className="font-heading text-sm font-semibold text-brand-dark">
@@ -189,11 +183,69 @@ function ReviewCard({
           )}
         </div>
       </div>
-    </button>
+    </div>
   );
 }
 
-/* ── Carousel with arrow navigation + dots ── */
+/* ── Drag-to-swipe hook ── */
+function useDragToScroll(scrollRef: React.RefObject<HTMLDivElement | null>) {
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollStart = useRef(0);
+  const hasMoved = useRef(false);
+
+  const onPointerDown = useCallback(
+    (e: React.PointerEvent) => {
+      const el = scrollRef.current;
+      if (!el) return;
+      // Only respond to mouse (touch scrolls natively)
+      if (e.pointerType === "touch") return;
+      isDragging.current = true;
+      hasMoved.current = false;
+      startX.current = e.clientX;
+      scrollStart.current = el.scrollLeft;
+      el.setPointerCapture(e.pointerId);
+      el.style.cursor = "grabbing";
+      el.style.scrollSnapType = "none";
+    },
+    [scrollRef]
+  );
+
+  const onPointerMove = useCallback(
+    (e: React.PointerEvent) => {
+      if (!isDragging.current) return;
+      const el = scrollRef.current;
+      if (!el) return;
+      const dx = e.clientX - startX.current;
+      if (Math.abs(dx) > 5) hasMoved.current = true;
+      el.scrollLeft = scrollStart.current - dx;
+    },
+    [scrollRef]
+  );
+
+  const onPointerUp = useCallback(
+    (e: React.PointerEvent) => {
+      if (!isDragging.current) return;
+      isDragging.current = false;
+      const el = scrollRef.current;
+      if (!el) return;
+      el.releasePointerCapture(e.pointerId);
+      el.style.cursor = "";
+      // Re-enable snap after a tick so the snap animation kicks in
+      requestAnimationFrame(() => {
+        el.style.scrollSnapType = "";
+      });
+    },
+    [scrollRef]
+  );
+
+  /** True if the pointer moved significantly — used to suppress click on drag */
+  const didDrag = useCallback(() => hasMoved.current, []);
+
+  return { onPointerDown, onPointerMove, onPointerUp, didDrag };
+}
+
+/* ── Carousel with swipe, arrow navigation + dots ── */
 interface SuccessStoriesCarouselProps {
   reviews: GoogleReview[];
   averageRating: number;
@@ -211,8 +263,11 @@ export default function SuccessStoriesCarousel({
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [selectedReview, setSelectedReview] = useState<GoogleReview | null>(null);
 
-  const cardWidth = 356; // card width + gap
+  const cardWidth = 356;
   const totalDots = Math.max(1, reviews.length - 2);
+
+  const { onPointerDown, onPointerMove, onPointerUp, didDrag } =
+    useDragToScroll(scrollRef);
 
   const updateScrollState = useCallback(() => {
     const el = scrollRef.current;
@@ -238,6 +293,12 @@ export default function SuccessStoriesCarousel({
     if (!el) return;
     const amount = direction === "left" ? -cardWidth : cardWidth;
     el.scrollBy({ left: amount, behavior: "smooth" });
+  };
+
+  const handleCardClick = (review: GoogleReview) => {
+    // Don't open modal if user was dragging
+    if (didDrag()) return;
+    setSelectedReview(review);
   };
 
   return (
@@ -286,17 +347,21 @@ export default function SuccessStoriesCarousel({
           </div>
         </div>
 
-        {/* Scrollable cards */}
+        {/* Scrollable cards — touch swipe + mouse drag */}
         <div className="relative -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
           <div
             ref={scrollRef}
-            className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide"
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            onPointerCancel={onPointerUp}
+            className="flex cursor-grab gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide touch-pan-x"
           >
             {reviews.map((review, idx) => (
               <ReviewCard
                 key={`${review.authorName}-${idx}`}
                 review={review}
-                onClick={() => setSelectedReview(review)}
+                onClick={() => handleCardClick(review)}
               />
             ))}
           </div>
@@ -339,7 +404,6 @@ export default function SuccessStoriesCarousel({
         </div>
       </Container>
 
-      {/* Review modal */}
       {selectedReview && (
         <ReviewModal
           review={selectedReview}
