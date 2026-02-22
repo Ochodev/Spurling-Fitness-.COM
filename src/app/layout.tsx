@@ -6,6 +6,7 @@ import AnnouncementBanner from "@/components/layout/AnnouncementBanner";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { FormModalProvider } from "@/components/ui/FormModal";
+import { PostHogProvider } from "./providers";
 import OrganizationSchema from "@/components/seo/OrganizationSchema";
 import { BRAND } from "@/lib/constants";
 
@@ -96,14 +97,16 @@ export default function RootLayout({
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-        <FormModalProvider>
-          <AnnouncementBanner />
-          <div className="relative">
-            <Header />
-            <main>{children}</main>
-          </div>
-          <Footer />
-        </FormModalProvider>
+        <PostHogProvider>
+          <FormModalProvider>
+            <AnnouncementBanner />
+            <div className="relative">
+              <Header />
+              <main>{children}</main>
+            </div>
+            <Footer />
+          </FormModalProvider>
+        </PostHogProvider>
       </body>
     </html>
   );
