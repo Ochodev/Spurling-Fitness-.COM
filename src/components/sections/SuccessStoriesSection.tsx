@@ -5,7 +5,7 @@ import Container from "@/components/layout/Container";
 import Image from "next/image";
 import { GoogleReview } from "@/types";
 
-/* ── Star (bronze/copper color to match screenshot) ── */
+/* ── Star (bronze/copper color) ── */
 function Star() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 text-[#C17F59]">
@@ -14,10 +14,144 @@ function Star() {
   );
 }
 
-/* ── Single review card ── */
-function ReviewCard({ review }: { review: GoogleReview }) {
+/* ── Author avatar ── */
+function AuthorAvatar({ review, size = "sm" }: { review: GoogleReview; size?: "sm" | "lg" }) {
+  const dim = size === "lg" ? "h-12 w-12" : "h-10 w-10";
+  const iconDim = size === "lg" ? "h-6 w-6" : "h-5 w-5";
+
+  if (review.authorPhotoUrl) {
+    return (
+      <Image
+        src={review.authorPhotoUrl}
+        alt={review.authorName}
+        width={size === "lg" ? 48 : 40}
+        height={size === "lg" ? 48 : 40}
+        className={`${dim} rounded-full object-cover`}
+        unoptimized
+      />
+    );
+  }
+
   return (
-    <div className="flex w-[320px] shrink-0 flex-col rounded-xl border border-gray-200 bg-white p-7 shadow-sm snap-start sm:w-[340px]">
+    <div className={`flex ${dim} items-center justify-center rounded-full bg-gray-200`}>
+      <svg viewBox="0 0 24 24" fill="currentColor" className={`${iconDim} text-gray-400`}>
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+      </svg>
+    </div>
+  );
+}
+
+/* ── Review modal ── */
+function ReviewModal({
+  review,
+  onClose,
+}: {
+  review: GoogleReview;
+  onClose: () => void;
+}) {
+  // Close on Escape key
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handleKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Review by ${review.authorName}`}
+    >
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+
+      {/* Modal content */}
+      <div
+        className="relative w-full max-w-lg rounded-2xl bg-white p-8 shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          aria-label="Close review"
+          className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-gray-100 hover:text-brand-dark"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-5 w-5">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+
+        {/* Stars */}
+        <div className="mb-4 flex items-center gap-0.5">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <Star key={i} />
+          ))}
+        </div>
+
+        {/* Full review text */}
+        <p className="mb-6 text-[16px] leading-relaxed text-brand-dark">
+          &ldquo;{review.text}&rdquo;
+        </p>
+
+        {/* Divider */}
+        <div className="mb-5 border-t border-gray-200" />
+
+        {/* Author */}
+        <div className="flex items-center gap-3">
+          <AuthorAvatar review={review} size="lg" />
+          <div>
+            <p className="font-heading text-base font-semibold text-brand-dark">
+              {review.authorName}
+            </p>
+            <div className="flex items-center gap-2">
+              <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+              <span className="text-xs text-brand-gray-light">Google Review</span>
+              {review.locationName && (
+                <>
+                  <span className="text-xs text-gray-300">&middot;</span>
+                  <span className="text-xs text-brand-gray-light">{review.locationName}</span>
+                </>
+              )}
+            </div>
+            {review.relativeTime && (
+              <p className="mt-0.5 text-xs text-brand-gray-light">{review.relativeTime}</p>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Single review card ── */
+function ReviewCard({
+  review,
+  onClick,
+}: {
+  review: GoogleReview;
+  onClick: () => void;
+}) {
+  const isTruncated = review.text.length > 220;
+
+  return (
+    <button
+      onClick={onClick}
+      className="flex w-[320px] shrink-0 cursor-pointer flex-col rounded-xl border border-gray-200 bg-white p-7 text-left shadow-sm transition-shadow hover:shadow-md snap-start sm:w-[340px]"
+      aria-label={`Read full review by ${review.authorName}`}
+    >
       {/* Stars */}
       <div className="mb-5 flex items-center gap-0.5">
         {[1, 2, 3, 4, 5].map((i) => (
@@ -27,32 +161,24 @@ function ReviewCard({ review }: { review: GoogleReview }) {
 
       {/* Review text */}
       <p className="mb-6 flex-1 text-[15px] leading-relaxed text-brand-dark">
-        &ldquo;{review.text.length > 220
+        &ldquo;{isTruncated
           ? `${review.text.slice(0, 220)}...`
           : review.text}&rdquo;
       </p>
+
+      {/* Read more hint */}
+      {isTruncated && (
+        <span className="mb-4 text-xs font-semibold text-brand-red">
+          Read full review →
+        </span>
+      )}
 
       {/* Divider */}
       <div className="mb-5 border-t border-gray-200" />
 
       {/* Author */}
       <div className="flex items-center gap-3">
-        {review.authorPhotoUrl ? (
-          <Image
-            src={review.authorPhotoUrl}
-            alt={review.authorName}
-            width={40}
-            height={40}
-            className="h-10 w-10 rounded-full object-cover"
-            unoptimized
-          />
-        ) : (
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200">
-            <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5 text-gray-400">
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-            </svg>
-          </div>
-        )}
+        <AuthorAvatar review={review} />
         <div>
           <p className="font-heading text-sm font-semibold text-brand-dark">
             {review.authorName}
@@ -63,7 +189,7 @@ function ReviewCard({ review }: { review: GoogleReview }) {
           )}
         </div>
       </div>
-    </div>
+    </button>
   );
 }
 
@@ -83,9 +209,10 @@ export default function SuccessStoriesCarousel({
   const [activeDot, setActiveDot] = useState(0);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [selectedReview, setSelectedReview] = useState<GoogleReview | null>(null);
 
   const cardWidth = 356; // card width + gap
-  const totalDots = Math.max(1, reviews.length - 2); // approximate pages
+  const totalDots = Math.max(1, reviews.length - 2);
 
   const updateScrollState = useCallback(() => {
     const el = scrollRef.current;
@@ -93,7 +220,6 @@ export default function SuccessStoriesCarousel({
     setCanScrollLeft(el.scrollLeft > 10);
     setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10);
 
-    // Calculate active dot
     const scrollPercent = el.scrollLeft / (el.scrollWidth - el.clientWidth || 1);
     const dot = Math.round(scrollPercent * (totalDots - 1));
     setActiveDot(Math.max(0, Math.min(dot, totalDots - 1)));
@@ -167,7 +293,11 @@ export default function SuccessStoriesCarousel({
             className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide"
           >
             {reviews.map((review, idx) => (
-              <ReviewCard key={`${review.authorName}-${idx}`} review={review} />
+              <ReviewCard
+                key={`${review.authorName}-${idx}`}
+                review={review}
+                onClick={() => setSelectedReview(review)}
+              />
             ))}
           </div>
         </div>
@@ -208,6 +338,14 @@ export default function SuccessStoriesCarousel({
           <span className="text-xs text-brand-gray-light">Google Reviews</span>
         </div>
       </Container>
+
+      {/* Review modal */}
+      {selectedReview && (
+        <ReviewModal
+          review={selectedReview}
+          onClose={() => setSelectedReview(null)}
+        />
+      )}
     </section>
   );
 }
