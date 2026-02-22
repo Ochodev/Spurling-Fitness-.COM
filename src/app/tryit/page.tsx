@@ -2,7 +2,7 @@ import { generatePageMetadata } from "@/lib/metadata";
 import LandingPageTemplate from "@/components/sections/LandingPageTemplate";
 
 export const metadata = generatePageMetadata({
-  title: "28-Day Risk-Free Trial",
+  title: "Get Your 28 Day Risk-Free Pass",
   description:
     "Try Spurling Fitness for 28 days risk-free. Personal training for adults over 50 with expert coaches, personalized plans, and a supportive community.",
   path: "/tryit/",

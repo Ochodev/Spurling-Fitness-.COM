@@ -40,6 +40,7 @@ export interface Location {
   zip: string;
   mapEmbedUrl: string;
   directionsUrl: string;
+  mapUrl: string;
 }
 
 export interface FaqItem {
@@ -50,4 +51,20 @@ export interface FaqItem {
 export interface NavLink {
   label: string;
   href: string;
+}
+
+export interface GoogleReview {
+  authorName: string;
+  authorPhotoUrl: string | null;
+  rating: number;
+  text: string;
+  relativeTime: string;
+  locationName: string;
+}
+
+export interface LocationReviewData {
+  locationName: string;
+  rating: number;
+  totalReviews: number;
+  reviews: GoogleReview[];
 }

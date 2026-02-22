@@ -28,7 +28,7 @@ export default function TeamGrid({
           </h3>
         )}
 
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
           {members.map((member) => (
             <TeamMemberCard
               key={member.id}

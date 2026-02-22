@@ -6,7 +6,7 @@ import Image from "next/image";
 import ContactFooterSection from "@/components/sections/ContactFooterSection";
 
 export const metadata = generatePageMetadata({
-  title: "Stories",
+  title: "Testimonial",
   description:
     "Read success stories from Spurling Fitness clients. Real people, real results — see how our personal training helps adults over 50 transform their lives.",
   path: "/testimonial/",
@@ -18,9 +18,10 @@ export default function TestimonialPage() {
       <Hero
         backgroundImage="/images/heroes/dsc-1017.webp"
         headline="Testimonials"
-        subheadline="Discover how our programs have transformed lives and helped our members achieve their fitness goals."
-        ctaText="Get Started"
+        subheadline="Discover how our programs have transformed lives and helped our members achieve their fitness goals. Read real stories and experiences from our dedicated community at Spurling Fitness."
+        ctaText="Talk to a Trainer!"
         ctaHref="/contact-us/"
+        align="left"
       />
 
       {/* Testimonials Grid */}

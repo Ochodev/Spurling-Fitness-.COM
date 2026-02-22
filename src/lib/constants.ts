@@ -18,3 +18,9 @@ export const COLORS = {
   grayLight: "#777777",
   white: "#FFFFFF",
 } as const;
+
+export const PLACE_IDS = {
+  kennebunk: "ChIJazfD8tGtskwRRYQLLKBfb-I",
+  scarborough: "ChIJeeHVzWKZskwRgwyFSFwxKU0",
+  southPortland: "ChIJ4YrbeBafskwRGRlo0jb6eDc",
+} as const;

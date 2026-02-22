@@ -99,15 +99,4 @@ export const teamMembers: TeamMember[] = [
       "NSCA-CPT (Certified Personal Trainer)",
     ],
   },
-  {
-    id: "joseph-davenport",
-    name: "Joseph Davenport",
-    role: "Coach",
-    photo: "/images/team/joseph-davenport.webp",
-    bio: "Built foundation through 21 years U.S. Army service as Supply Specialist, Drill Instructor, and H2F (Holistic Health and Fitness) Integrator. Military experiences shaped leadership, discipline, and motivation through challenge and growth. Mixed Martial Arts deepened understanding of movement, power, balance, and mental toughness, reinforcing progress through consistency. Background in rehabilitation support and corrective exercise inform hands-on, detailed, supportive coaching approach. Mission centers on helping people rise, move confidently, think with strength, and build resilience transforming life inside and outside gym. Believes \"Desire and imagination have potential to position person for greatness.\"",
-    certifications: [
-      "Bachelor's in Athletic Training",
-    ],
-    featured: true,
-  },
 ];

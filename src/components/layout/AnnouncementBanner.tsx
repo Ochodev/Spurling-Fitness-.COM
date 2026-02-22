@@ -26,10 +26,14 @@ export default function AnnouncementBanner() {
     <div className="relative z-[99999] bg-brand-red text-white text-center">
       <Link
         href="/founders/?utm_source=banner&utm_medium=sitewide&utm_campaign=sp_opening_2025-12-01"
-        className="block py-2.5 px-10 text-white text-sm sm:text-base font-medium no-underline hover:opacity-90 transition-opacity"
+        className="block py-2.5 px-10 text-white no-underline hover:opacity-90 transition-opacity"
       >
-        🎉 New Location Now Open In South Portland 🎉 Reserve Your VIP
-        Membership (15 Spots Left)
+        <span className="block text-sm sm:text-base font-medium">
+          🎉 New Location Now Open In South Portland 🎉
+        </span>
+        <span className="block text-xs sm:text-sm">
+          Reserve Your VIP Membership (15 Spots Left)
+        </span>
       </Link>
       <button
         onClick={handleDismiss}

@@ -10,7 +10,7 @@ import { services } from "@/data/services";
 const service = services.find((s) => s.id === "private-one-on-one")!;
 
 export const metadata = generatePageMetadata({
-  title: "One-on-One Personal Training",
+  title: "Private One-On-One",
   description: service.shortDescription,
   path: "/what-we-do/private-one-on-one/",
 });

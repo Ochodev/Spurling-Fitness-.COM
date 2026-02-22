@@ -5,9 +5,11 @@ import Link from "next/link";
 import Image from "next/image";
 import MobileMenu from "./MobileMenu";
 import { mainNavLinks } from "@/data/navigation";
+import { useFormModal } from "@/components/ui/FormModal";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { openFormModal } = useFormModal();
 
   return (
     <header className="absolute top-0 left-0 right-0 z-[9998] bg-transparent">
@@ -26,12 +28,12 @@ export default function Header() {
 
         {/* Desktop Nav */}
         <nav className="hidden items-center gap-6 lg:flex">
-          <Link
-            href="/contact-us/"
-            className="font-heading text-[20px] leading-[20px] font-medium text-brand-red hover:text-brand-red-dark transition-colors no-underline"
+          <button
+            onClick={openFormModal}
+            className="cursor-pointer bg-transparent font-heading text-[20px] leading-[20px] font-medium text-brand-red hover:text-brand-red-dark transition-colors border-none p-0"
           >
             Schedule &amp; Pricing
-          </Link>
+          </button>
           <Link
             href="/contact-us/"
             className="inline-block rounded-[5px] border border-brand-red bg-brand-red px-6 py-3 font-heading text-[15px] leading-[15px] font-normal text-white no-underline transition-colors hover:bg-brand-red-dark hover:border-brand-red-dark"
@@ -57,6 +59,7 @@ export default function Header() {
         open={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
         links={mainNavLinks}
+        onScheduleClick={openFormModal}
       />
     </header>
   );

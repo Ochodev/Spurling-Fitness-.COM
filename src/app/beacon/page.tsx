@@ -2,7 +2,7 @@ import { generatePageMetadata } from "@/lib/metadata";
 import LandingPageTemplate from "@/components/sections/LandingPageTemplate";
 
 export const metadata = generatePageMetadata({
-  title: "Free 14-Day Pass – South Portland",
+  title: "Beacon",
   description:
     "Claim your free 14-day pass at Spurling Fitness South Portland. Personal training for adults over 50 at 239 Ocean St.",
   path: "/beacon/",

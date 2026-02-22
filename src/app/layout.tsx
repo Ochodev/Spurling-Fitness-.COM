@@ -5,6 +5,8 @@ import "./globals.css";
 import AnnouncementBanner from "@/components/layout/AnnouncementBanner";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { FormModalProvider } from "@/components/ui/FormModal";
+import OrganizationSchema from "@/components/seo/OrganizationSchema";
 import { BRAND } from "@/lib/constants";
 
 const kanit = Kanit({
@@ -79,6 +81,8 @@ export default function RootLayout({
           fbq('init', '${process.env.NEXT_PUBLIC_FB_PIXEL_ID || "639844379451697"}');
           fbq('track', 'PageView');`}
         </Script>
+        {/* JSON-LD Structured Data */}
+        <OrganizationSchema />
       </head>
       <body
         className={`${kanit.variable} ${raleway.variable} ${teko.variable} ${poppins.variable} antialiased`}
@@ -92,12 +96,14 @@ export default function RootLayout({
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-        <AnnouncementBanner />
-        <div className="relative">
-          <Header />
-          <main>{children}</main>
-        </div>
-        <Footer />
+        <FormModalProvider>
+          <AnnouncementBanner />
+          <div className="relative">
+            <Header />
+            <main>{children}</main>
+          </div>
+          <Footer />
+        </FormModalProvider>
       </body>
     </html>
   );

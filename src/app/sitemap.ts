@@ -26,6 +26,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tryit/",
     "/athome/",
     "/waitlist/",
+    "/locations/",
+    "/locations/kennebunk/",
+    "/locations/scarborough/",
+    "/locations/south-portland/",
   ];
 
   return routes.map((route) => ({

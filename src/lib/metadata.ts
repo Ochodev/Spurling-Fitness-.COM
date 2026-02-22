@@ -18,7 +18,7 @@ export function generatePageMetadata({
   const url = `${BRAND.url}${path}`;
 
   return {
-    title: fullTitle,
+    title,
     description,
     alternates: { canonical: url },
     openGraph: {

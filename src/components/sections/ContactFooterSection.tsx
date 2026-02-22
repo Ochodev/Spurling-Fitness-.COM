@@ -14,7 +14,7 @@ export default function ContactFooterSection({
   source = "website",
   locationDefault = "",
   hideForm = false,
-  formSubheading,
+  formSubheading = "Unleash your full potential and experience a life-changing transformation with our empowering fitness programs designed to help you achieve your dreams.",
   formButtonText,
 }: ContactFooterSectionProps) {
   return (

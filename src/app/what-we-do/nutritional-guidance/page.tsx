@@ -10,7 +10,7 @@ import { services } from "@/data/services";
 const service = services.find((s) => s.id === "nutritional-guidance")!;
 
 export const metadata = generatePageMetadata({
-  title: "Nutrition Coaching",
+  title: "Nutritional Guidance",
   description: service.shortDescription,
   path: "/what-we-do/nutritional-guidance/",
 });
@@ -33,9 +33,25 @@ export default function NutritionPage() {
             You Can&apos;t Out-Train a Bad Diet — But You Can Build Habits
             That Last
           </h2>
-          <p className="mx-auto max-w-3xl text-center text-lg leading-relaxed text-brand-gray">
-            {service.shortDescription}
-          </p>
+          <div className="mx-auto max-w-3xl space-y-4 text-center text-[16px] leading-[24px] text-brand-gray">
+            <p>
+              What you eat impacts how you feel, how you move, and how you show
+              up every day. But with all the noise out there — keto, fasting,
+              macros, low-carb, high-protein — it&apos;s easy to get
+              overwhelmed. That&apos;s where we come in.
+            </p>
+            <p>
+              Our <strong>nutritional coaching program</strong> is built around{" "}
+              <em>you</em>. Your schedule. Your preferences. Your real life.
+            </p>
+            <p>We focus on sustainable changes that help you:</p>
+            <ul className="mx-auto max-w-md space-y-2 text-left">
+              <li>Lose weight without extreme restriction</li>
+              <li>Fuel your workouts and recovery</li>
+              <li>Build confidence around food</li>
+              <li>Stay consistent — even when life gets busy</li>
+            </ul>
+          </div>
         </Container>
       </section>
 

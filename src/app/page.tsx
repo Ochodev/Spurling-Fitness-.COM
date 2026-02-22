@@ -104,7 +104,7 @@ export default function HomePage() {
           </h2>
 
           {/* 3-Step Cards with Photo Backgrounds */}
-          <div className="mt-16 grid gap-6 md:grid-cols-3">
+          <div className="mt-16 grid gap-4 md:grid-cols-3 md:gap-6">
             {[
               {
                 number: "1",
@@ -130,7 +130,7 @@ export default function HomePage() {
             ].map((step) => (
               <div
                 key={step.number}
-                className="group relative overflow-hidden rounded-lg"
+                className="group relative overflow-hidden"
               >
                 <div className="relative h-[420px] sm:h-[480px]">
                   <Image
@@ -160,7 +160,7 @@ export default function HomePage() {
 
           <div className="mt-12">
             <Button href="/contact-us/" variant="filled" size="large">
-              Talk to a Trainer!
+              TALK TO A TRAINER!
             </Button>
           </div>
         </Container>
@@ -186,7 +186,7 @@ export default function HomePage() {
               </p>
               <div className="mt-8">
                 <Button href="/contact-us/" variant="outlined" size="large">
-                  Talk to a Trainer!
+                  TALK TO A TRAINER!
                 </Button>
               </div>
             </div>
@@ -230,21 +230,21 @@ export default function HomePage() {
           <div className="grid gap-6 md:grid-cols-3">
             {[
               {
-                title: "Private One-On-One Training",
+                title: "PRIVATE ONE-ON-ONE TRAINING",
                 description:
                   "Experience personalized training sessions tailored to your specific needs and goals, ensuring maximum results and continuous support.",
                 image: "/images/heroes/dsc-1003.webp",
                 href: "/what-we-do/private-one-on-one/",
               },
               {
-                title: "Small Group Personal Training",
+                title: "SMALL GROUP PERSONAL TRAINING",
                 description:
                   "Enjoy the benefits of a customized workout in a supportive, small group setting. Get individualized routines and guidance, while sharing the experience with others.",
                 image: "/images/heroes/dsc-0906.webp",
                 href: "/what-we-do/small-group-personal-training/",
               },
               {
-                title: "Nutritional Guidance",
+                title: "NUTRITIONAL GUIDANCE",
                 description:
                   "Get expert nutritional advice to complement your fitness routine, helping you make healthier choices and achieve your wellness goals.",
                 image: "/images/misc/nutrition-food.webp",
@@ -287,63 +287,9 @@ export default function HomePage() {
             SUCCESS STORIES
           </h2>
 
-          <div className="mx-auto mb-8 flex items-center justify-center gap-4">
-            <div>
-              <p className="font-heading text-lg font-semibold uppercase tracking-wider text-brand-dark">
-                Excellent
-              </p>
-              <div className="flex items-center justify-center gap-1 text-yellow-400">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                ))}
-              </div>
-              <p className="mt-1 text-sm text-brand-gray-light">
-                Based on 170+ reviews
-              </p>
-            </div>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-3">
-            {[
-              {
-                name: "Lynn Jourdan",
-                text: "Spurling is exceptional. I am 73 and have been going to the gym since I was in my late 40s. The professional team makes all the difference.",
-              },
-              {
-                name: "Washburn Family",
-                text: "We joined Spurling because we needed accountability and direction with our fitness goals. The coaches are amazing and truly care about each member.",
-              },
-              {
-                name: "Martha Crow",
-                text: "Spurling has been life changing! I've been going for over a year and have gained strength, confidence and friends. Best decision I ever made.",
-              },
-            ].map((review) => (
-              <div
-                key={review.name}
-                className="rounded-lg border border-gray-200 p-6 text-left shadow-sm"
-              >
-                <div className="mb-3 flex items-center gap-1 text-yellow-400">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                    </svg>
-                  ))}
-                </div>
-                <p className="mb-3 text-sm leading-relaxed text-brand-gray">
-                  {review.text}
-                </p>
-                <p className="font-heading text-sm font-semibold text-brand-dark">
-                  {review.name}
-                </p>
-              </div>
-            ))}
-          </div>
-
           <div className="mt-10">
             <Button href="/testimonial/" variant="outlined" size="large">
-              View More Testimonials
+              VIEW MORE TESTIMONIALS
             </Button>
           </div>
         </Container>
@@ -366,7 +312,7 @@ export default function HomePage() {
             <h2 className="mb-4 text-center font-semibold uppercase text-brand-red text-[42px] sm:text-[54px] sm:leading-[54px]" style={{ fontFamily: "var(--font-teko), sans-serif" }}>
               CONTACT US
             </h2>
-            <p className="mx-auto mb-10 max-w-lg text-center text-[16px] leading-[24px] text-brand-dark">
+            <p className="mx-auto mb-10 max-w-lg text-center text-[16px] leading-[24px] text-gray-300">
               Unleash your full potential and experience a life-changing
               transformation with our empowering fitness programs designed to
               help you achieve your dreams.

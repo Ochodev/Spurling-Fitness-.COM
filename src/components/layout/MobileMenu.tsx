@@ -9,9 +9,10 @@ interface MobileMenuProps {
   open: boolean;
   onClose: () => void;
   links: NavLink[];
+  onScheduleClick?: () => void;
 }
 
-export default function MobileMenu({ open, onClose, links }: MobileMenuProps) {
+export default function MobileMenu({ open, onClose, links, onScheduleClick }: MobileMenuProps) {
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
@@ -50,16 +51,29 @@ export default function MobileMenu({ open, onClose, links }: MobileMenuProps) {
 
         {/* Nav links */}
         <nav className="mt-16 flex flex-col px-6">
-          {links.map((link) => (
-            <Link
-              key={`${link.label}-${link.href}`}
-              href={link.href}
-              onClick={onClose}
-              className="border-b border-gray-100 py-4 font-heading text-lg font-medium text-brand-dark no-underline transition-colors hover:text-brand-red"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {links.map((link) =>
+            link.label === "Schedule & Pricing" && onScheduleClick ? (
+              <button
+                key={`${link.label}-${link.href}`}
+                onClick={() => {
+                  onClose();
+                  onScheduleClick();
+                }}
+                className="cursor-pointer border-b border-gray-100 bg-transparent py-4 text-left font-heading text-lg font-medium text-brand-dark transition-colors hover:text-brand-red border-t-0 border-x-0 p-0 px-0"
+              >
+                {link.label}
+              </button>
+            ) : (
+              <Link
+                key={`${link.label}-${link.href}`}
+                href={link.href}
+                onClick={onClose}
+                className="border-b border-gray-100 py-4 font-heading text-lg font-medium text-brand-dark no-underline transition-colors hover:text-brand-red"
+              >
+                {link.label}
+              </Link>
+            )
+          )}
         </nav>
 
         {/* CTA button */}

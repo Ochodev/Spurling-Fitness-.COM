@@ -10,7 +10,7 @@ export default function TeamMemberCard({ member, onClick }: TeamMemberCardProps)
   return (
     <button
       onClick={onClick}
-      className="group relative cursor-pointer overflow-hidden rounded-lg text-left"
+      className="group relative cursor-pointer overflow-hidden text-left"
     >
       <div className="relative aspect-[3/4] overflow-hidden">
         <Image

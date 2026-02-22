@@ -2,7 +2,7 @@ import { generatePageMetadata } from "@/lib/metadata";
 import LandingPageTemplate from "@/components/sections/LandingPageTemplate";
 
 export const metadata = generatePageMetadata({
-  title: "Free 14-Day Pass – Scarborough",
+  title: "10 market St",
   description:
     "Claim your free 14-day pass at Spurling Fitness Scarborough. Located at 10 Market St, we specialize in personal training for adults over 50.",
   path: "/10market/",

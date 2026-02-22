@@ -18,7 +18,7 @@ export default function WhatWeDoPage() {
     <>
       <Hero
         backgroundImage="/images/heroes/dsc-1003.webp"
-        headline="Personal Training Services Across Kennebunk, Scarborough & South Portland"
+        headline="Personal Training Services Across Kennebunk, Scarborough & South Portland."
         subheadline="From personalized training to nutritional guidance, Spurling Fitness offers a comprehensive approach to health and wellness. Explore our services and discover how we can help you achieve your fitness goals."
         ctaText="Talk to a Trainer!"
         ctaHref="/contact-us/"
@@ -33,11 +33,17 @@ export default function WhatWeDoPage() {
               <h3 className="font-heading text-4xl font-semibold uppercase text-brand-red sm:text-5xl md:text-[59px]" style={{ lineHeight: "1" }}>
                 What We Do
               </h3>
-              <p className="mt-6 text-lg leading-relaxed text-brand-gray">
-                At Spurling Fitness, we understand that fitness is not
-                one-size-fits-all, especially for adults over 50. That&apos;s why we
-                offer a range of services designed to meet you where you are and help
-                you get where you want to be.
+              <p className="mt-6 text-[16px] leading-[24px] text-brand-dark">
+                At Spurling Fitness, we offer a smarter, more supportive approach to
+                fitness for adults 50+. Whether you&apos;re just getting started or
+                looking to break through a plateau, we combine expert coaching, a
+                proven system, and a welcoming community to help you look, move, and
+                feel your best. With locations in{" "}
+                <strong>Kennebunk, Scarborough &amp; South Portland</strong> we
+                specialize in <strong>small group personal training</strong>,{" "}
+                <strong>1-on-1 coaching</strong>, and{" "}
+                <strong>nutrition guidance</strong> tailored to your life — not the
+                other way around.
               </p>
               <div className="mt-8">
                 <Button href="/contact-us/" variant="outlined" size="large">
@@ -95,10 +101,16 @@ export default function WhatWeDoPage() {
                 <h3 className="font-heading text-3xl font-semibold uppercase text-brand-red sm:text-4xl md:text-[50px]" style={{ lineHeight: "1" }}>
                   Small Group Personal Training
                 </h3>
-                <p className="mt-4 leading-relaxed text-white/90">
-                  Experience the best of both worlds — personalized coaching in an
-                  energizing small group of no more than 6 people. You get individual
-                  attention with the energy and accountability of a group.
+                <p className="mt-4 text-[16px] leading-[24px] text-white/90">
+                  Our most popular option,{" "}
+                  <strong>Small Group Personal Training</strong> delivers the results
+                  of one-on-one coaching with the energy and accountability of a small
+                  group. Each session is led by a professional coach, so you get
+                  personalized attention in every workout. You&apos;ll follow a plan
+                  designed specifically for your goals, abilities, and fitness
+                  level—no more guessing, no generic workouts. Available at both our{" "}
+                  <strong>Kennebunk,</strong>{" "}
+                  <strong>Scarborough, &amp; South Portland</strong> locations.
                 </p>
                 <div className="mt-6">
                   <Button href="/what-we-do/small-group-personal-training/" variant="outlined" className="!border-brand-red !text-brand-red hover:!bg-brand-red hover:!text-white">
@@ -114,11 +126,15 @@ export default function WhatWeDoPage() {
                 <h3 className="font-heading text-3xl font-semibold uppercase text-brand-red sm:text-4xl md:text-[50px]" style={{ lineHeight: "1" }}>
                   Private Personal Training Tailored Just for You
                 </h3>
-                <p className="mt-4 leading-relaxed text-white/90">
-                  Personalized training sessions with our expert coaches provide an
-                  amazing fitness experience tailored to your unique goals and needs.
-                  Our one-on-one sessions ensure that every workout is designed
-                  specifically for you, maximizing efficiency and results.
+                <p className="mt-4 text-[16px] leading-[24px] text-white/90">
+                  Looking for a completely customized experience? Our{" "}
+                  <strong>One-on-One Personal Training</strong> gives you the undivided
+                  attention of your coach.
+                  It&apos;s ideal for clients recovering from injury, managing chronic
+                  conditions, or just wanting extra accountability. We build your
+                  workouts, monitor your progress, and make adjustments in real time
+                  so every session gets you closer to your goals. Private training is
+                  available in both Kennebunk and Scarborough.
                 </p>
                 <div className="mt-6">
                   <Button href="/what-we-do/private-one-on-one/" variant="outlined" className="!border-brand-red !text-brand-red hover:!bg-brand-red hover:!text-white">
@@ -152,11 +168,15 @@ export default function WhatWeDoPage() {
                 <h3 className="font-heading text-3xl font-semibold uppercase text-brand-red sm:text-4xl md:text-[50px]" style={{ lineHeight: "1" }}>
                   Practical Nutrition Guidance That Fits Your Life
                 </h3>
-                <p className="mt-4 leading-relaxed text-white/90">
-                  Achieving your fitness goals is not just about exercise; it&apos;s
-                  about fueling your body correctly too. Our Nutritional Guidance
-                  service pairs you with a dedicated nutrition coach who will work
-                  with you to develop a sustainable eating plan tailored to your needs.
+                <p className="mt-4 text-[16px] leading-[24px] text-white/90">
+                  Nutrition shouldn&apos;t be complicated — and it definitely
+                  shouldn&apos;t be one-size-fits-all. Our{" "}
+                  <strong>nutrition coaching</strong> focuses
+                  on helping you build sustainable habits around food, based on your
+                  lifestyle and goals. Whether you want to lose weight, gain strength,
+                  or boost your energy, we&apos;ll help you cut through the noise and
+                  get results that last. This program complements your training and
+                  gives you the tools to succeed beyond the gym.
                 </p>
                 <div className="mt-6">
                   <Button href="/what-we-do/nutritional-guidance/" variant="outlined" className="!border-brand-red !text-brand-red hover:!bg-brand-red hover:!text-white">

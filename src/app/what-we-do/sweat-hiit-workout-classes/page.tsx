@@ -10,7 +10,7 @@ import { services } from "@/data/services";
 const service = services.find((s) => s.id === "sweat-hiit-workout-classes")!;
 
 export const metadata = generatePageMetadata({
-  title: "HIIT Workout Classes in Kennebunk",
+  title: "Sweat – HIIT Workout Classes",
   description: service.shortDescription,
   path: "/what-we-do/sweat-hiit-workout-classes/",
 });
@@ -30,31 +30,19 @@ export default function SweatHiitPage() {
       <section className="py-16 sm:py-20">
         <Container>
           <p className="mx-auto max-w-3xl text-center text-lg leading-relaxed text-brand-gray">
-            {service.shortDescription}
+            Our classes combine short bursts of intense activity with periods of
+            rest to maximize fat burn and improve cardiovascular health. Whether
+            you&apos;re a seasoned athlete or new to HIIT, our trainers will
+            ensure you get the most out of each workout. Join us to experience
+            the benefits of increased endurance, strength, and overall fitness in
+            a fun and challenging environment.
           </p>
         </Container>
       </section>
 
-      {/* Benefits — Dark section with brushstroke top + bottom */}
-      <section
-        className="relative bg-brand-dark py-16 sm:py-24"
-        style={{
-          backgroundImage: "url(/images/dividers/wholevertical-01-mod.svg)",
-          backgroundSize: "800px",
-          backgroundRepeat: "repeat-x",
-          backgroundPosition: "50% 0%",
-        }}
-      >
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            backgroundImage: "url(/images/dividers/vertical-01-reflected.svg)",
-            backgroundSize: "800px",
-            backgroundPosition: "50% 100%",
-            backgroundRepeat: "repeat-x",
-          }}
-        />
-        <Container className="relative z-[1]">
+      {/* Benefits — Dark section */}
+      <section className="bg-brand-dark py-16 sm:py-24">
+        <Container>
           <div className="flex flex-col items-center gap-10 lg:flex-row lg:gap-16">
             <div className="relative h-[400px] w-full overflow-hidden rounded-lg lg:h-[500px] lg:w-1/2">
               <Image
@@ -66,8 +54,8 @@ export default function SweatHiitPage() {
               />
             </div>
             <div className="lg:w-1/2">
-              <h2 className="mb-8 font-heading text-2xl font-semibold text-brand-red sm:text-3xl">
-                Why SWEAT HIIT?
+              <h2 className="mb-8 font-heading text-3xl font-semibold uppercase text-brand-red sm:text-4xl md:text-[50px]" style={{ lineHeight: "1" }}>
+                Why Choose HIIT Workout Classes at Spurling Fitness
               </h2>
               <div className="space-y-6">
                 {service.benefits.map((benefit) => (
@@ -81,7 +69,7 @@ export default function SweatHiitPage() {
                       <h3 className="font-heading text-lg font-semibold text-white">
                         {benefit.title}
                       </h3>
-                      <p className="mt-1 text-sm leading-relaxed text-white/80">
+                      <p className="mt-1 text-sm leading-relaxed text-gray-300">
                         {benefit.description}
                       </p>
                     </div>
@@ -99,7 +87,10 @@ export default function SweatHiitPage() {
       </section>
 
       <SuccessStoriesSection />
-      <ContactFooterSection source="sweat-hiit" />
+      <ContactFooterSection
+        source="sweat-hiit"
+        formSubheading="Unleash your full potential and experience a life-changing transformation with our empowering fitness programs designed to help you achieve your dreams."
+      />
     </>
   );
 }
