@@ -6,6 +6,7 @@ import ContactForm from "@/components/forms/ContactForm";
 import YouTubeEmbed from "@/components/ui/YouTubeEmbed";
 import SelfHostedVideo from "@/components/ui/SelfHostedVideo";
 import SuccessStoriesSection from "@/components/sections/SuccessStoriesWrapper";
+import { fetchAllLocationReviews } from "@/lib/google-reviews";
 import { videoTestimonials } from "@/data/testimonials";
 
 export const metadata = generatePageMetadata({
@@ -23,25 +24,29 @@ const benefits = [
   "ACCESS TO EXPERT COACHES SPECIALIZING IN STRENGTH & MOBILITY",
 ];
 
-/** Reusable CTA block — matches live site red banner */
+/** Reusable CTA block — direct response style with urgency + first-person language */
 function FoundersCTA({ className = "" }: { className?: string }) {
   return (
     <Link
       href="#waitlist"
-      className={`group block rounded-lg bg-brand-red px-8 py-6 text-center transition-opacity hover:opacity-90 ${className}`}
+      className={`group block rounded-lg bg-brand-red px-8 py-5 text-center shadow-lg shadow-brand-red/25 transition-all hover:shadow-xl hover:shadow-brand-red/30 hover:brightness-110 ${className}`}
     >
-      <h3 className="font-heading text-xl font-semibold uppercase text-white sm:text-2xl">
-        Only 15 Spots Remain
+      <span className="mb-1 inline-block rounded-full bg-white/20 px-3 py-0.5 text-xs font-semibold uppercase tracking-wider text-white">
+        Only 15 Founding Spots Remain
+      </span>
+      <h3 className="mt-2 font-heading text-xl font-semibold uppercase text-white sm:text-2xl">
+        Claim My Founders Membership
       </h3>
       <span className="mt-1 block text-sm text-white/90">
-        Enter to claim one of our Founders Memberships today to our brand new
-        South Portland/Cape Elizabeth LOCATION
+        South Portland / Cape Elizabeth &mdash; No commitment required
       </span>
     </Link>
   );
 }
 
-export default function FoundersPage() {
+export default async function FoundersPage() {
+  const { averageRating, totalReviews } = await fetchAllLocationReviews();
+
   return (
     <>
       {/* ─── 1. HERO — centered text with intro + CTA inside (matches WP) ─── */}
@@ -66,8 +71,32 @@ export default function FoundersPage() {
           }}
         />
         <Container className="relative z-10 text-center">
+          {/* Social proof badge bar */}
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 backdrop-blur-sm">
+            <div className="flex items-center gap-0.5" aria-hidden="true">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <svg key={i} viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 text-yellow-400">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+              ))}
+            </div>
+            <span className="text-sm font-semibold text-white">
+              {averageRating.toFixed(1)}
+            </span>
+            <span className="text-sm text-white/80">
+              from {totalReviews}+ Google Reviews
+            </span>
+            <svg viewBox="0 0 24 24" className="ml-1 h-4 w-4" fill="none" aria-hidden="true">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+            </svg>
+          </div>
+
           <h1 className="font-heading text-4xl font-semibold uppercase text-white sm:text-5xl md:text-[56px]" style={{ lineHeight: "1.1" }}>
-            Reclaim Your Body at 50+
+            Get Stronger, Move Better<br />
+            <span className="text-brand-red">&amp; Feel Amazing at 50+</span>
           </h1>
           <h2 className="mx-auto mt-4 max-w-2xl font-heading text-xl font-normal text-white sm:text-2xl" style={{ lineHeight: "1.3" }}>
             Move Without Pain.<br />
@@ -77,7 +106,23 @@ export default function FoundersPage() {
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/90">
             Finally... a personal training gym in South Portland that{" "}
             <strong className="text-white">UNDERSTANDS</strong> how the 50+ body actually works.
+            <span className="mt-2 block text-base text-white/70">
+              Expert coaches specializing in strength, mobility &amp; pain-free movement for adults over 50.
+            </span>
           </p>
+
+          {/* Micro-benefits strip */}
+          <div className="mx-auto mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            {["Customized to Your Body", "Expert 50+ Coaches", "No Long-Term Contracts"].map((benefit) => (
+              <div key={benefit} className="flex items-center gap-1.5">
+                <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 shrink-0 text-brand-red" aria-hidden="true">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                <span className="text-sm font-medium text-white/90">{benefit}</span>
+              </div>
+            ))}
+          </div>
+
           <div className="mt-8">
             <FoundersCTA className="mx-auto max-w-xl" />
           </div>

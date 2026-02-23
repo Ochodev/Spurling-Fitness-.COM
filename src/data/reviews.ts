@@ -32,4 +32,4 @@ export const fallbackReviews: GoogleReview[] = [
 ];
 
 export const fallbackRating = 5.0;
-export const fallbackTotalReviews = 170;
+export const fallbackTotalReviews = 194;
