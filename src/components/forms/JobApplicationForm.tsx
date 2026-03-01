@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+import { usePostHog } from "posthog-js/react";
+
 interface JobApplicationFormProps {
   className?: string;
 }
@@ -7,8 +10,28 @@ interface JobApplicationFormProps {
 export default function JobApplicationForm({
   className = "",
 }: JobApplicationFormProps) {
+  const formRef = useRef<HTMLFormElement>(null);
+  const posthog = usePostHog();
+
+  useEffect(() => {
+    const form = formRef.current;
+    if (!form) return;
+
+    const handleSubmit = () => {
+      const formData = new FormData(form);
+      const data: Record<string, string> = {};
+      formData.forEach((value, key) => {
+        data[key] = value.toString();
+      });
+      posthog.capture("form_submitted", data);
+    };
+    form.addEventListener("submit", handleSubmit);
+    return () => form.removeEventListener("submit", handleSubmit);
+  }, [posthog]);
+
   return (
     <form
+      ref={formRef}
       action="/api/contact/"
       method="POST"
       className={`space-y-4 ${className}`}

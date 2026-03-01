@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { usePostHog } from "posthog-js/react";
 import { getTrackingData } from "@/lib/tracking";
 
 const inputStyles =
@@ -8,6 +9,7 @@ const inputStyles =
 
 export default function GiveawayForm() {
   const formRef = useRef<HTMLFormElement>(null);
+  const posthog = usePostHog();
 
   useEffect(() => {
     const form = formRef.current;
@@ -25,7 +27,18 @@ export default function GiveawayForm() {
       'input[name="page_url"]'
     );
     if (pageUrlInput) pageUrlInput.value = window.location.href;
-  }, []);
+
+    const handleSubmit = () => {
+      const formData = new FormData(form);
+      const data: Record<string, string> = {};
+      formData.forEach((value, key) => {
+        data[key] = value.toString();
+      });
+      posthog.capture("form_submitted", data);
+    };
+    form.addEventListener("submit", handleSubmit);
+    return () => form.removeEventListener("submit", handleSubmit);
+  }, [posthog]);
 
   return (
     <form
