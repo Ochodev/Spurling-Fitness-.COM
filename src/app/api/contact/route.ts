@@ -135,19 +135,7 @@ export async function POST(request: Request) {
       delete body.fullName;
     }
 
-    // Map utm_term → utm_keyword (GHL standard)
-    if (body.utm_term) {
-      body.utm_keyword = body.utm_term;
-      delete body.utm_term;
-    }
-
-    // Map landing_page → url (GHL Last Attribution: Landing URL)
-    if (body.landing_page) {
-      body.url = body.landing_page;
-      delete body.landing_page;
-    }
-
-    // Auto-detect traffic source before consolidating click IDs
+    // Auto-detect traffic source (must run before field renames)
     const internalSource = body.source || "";
     delete body.source;
     body.sessionSource = detectSessionSource({
@@ -160,7 +148,7 @@ export async function POST(request: Request) {
       msclkid: body.msclkid || "",
     });
 
-    // Consolidate click IDs → clickId (GHL Last Attribution: Ad click ID)
+    // Consolidate click IDs → clickId
     const clickId = body.gclid || body.fbclid || body.msclkid;
     if (clickId) {
       body.clickId = clickId;
@@ -169,18 +157,24 @@ export async function POST(request: Request) {
     delete body.fbclid;
     delete body.msclkid;
 
-    // Map ad tracking IDs to GHL Last Attribution fields
-    if (body.adsu_cid) {
-      body.campaignId = body.adsu_cid;
-      delete body.adsu_cid;
-    }
-    if (body.adsu_asid) {
-      body.adGroupId = body.adsu_asid;
-      delete body.adsu_asid;
-    }
-    if (body.adsu_aid) {
-      body.adId = body.adsu_aid;
-      delete body.adsu_aid;
+    // Rename all fields to GHL Last Attribution camelCase names
+    const renames: [string, string][] = [
+      ["utm_source", "utmSource"],
+      ["utm_medium", "utmMedium"],
+      ["utm_campaign", "campaign"],
+      ["utm_content", "utmContent"],
+      ["utm_term", "utmKeyword"],
+      ["utm_matchtype", "utmMatchType"],
+      ["landing_page", "url"],
+      ["adsu_cid", "campaignId"],
+      ["adsu_asid", "adGroupId"],
+      ["adsu_aid", "adId"],
+    ];
+    for (const [from, to] of renames) {
+      if (body[from]) {
+        body[to] = body[from];
+      }
+      delete body[from];
     }
 
     const webhookUrl =

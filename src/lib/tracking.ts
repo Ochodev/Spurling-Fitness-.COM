@@ -5,6 +5,7 @@ const TRACKING_KEYS = [
   "utm_content",
   "utm_term",
   "utm_keyword",
+  "utm_matchtype",
   "gclid",
   "fbclid",
   "msclkid",
@@ -21,6 +22,7 @@ interface TrackingData {
   utm_campaign: string;
   utm_content: string;
   utm_term: string;
+  utm_matchtype: string;
   gclid: string;
   fbclid: string;
   msclkid: string;
@@ -48,6 +50,7 @@ export function captureTrackingParams(): void {
       utm_campaign: params.get("utm_campaign") || "",
       utm_content: params.get("utm_content") || "",
       utm_term: params.get("utm_term") || "",
+      utm_matchtype: params.get("utm_matchtype") || params.get("matchtype") || "",
       gclid: params.get("gclid") || "",
       fbclid: params.get("fbclid") || "",
       msclkid: params.get("msclkid") || "",
@@ -66,6 +69,7 @@ export function captureTrackingParams(): void {
       utm_campaign: "",
       utm_content: "",
       utm_term: "",
+      utm_matchtype: "",
       gclid: "",
       fbclid: "",
       msclkid: "",
@@ -90,6 +94,7 @@ export function getTrackingData(): TrackingData {
       utm_campaign: "",
       utm_content: "",
       utm_term: "",
+      utm_matchtype: "",
       gclid: "",
       fbclid: "",
       msclkid: "",
@@ -114,6 +119,7 @@ export function getTrackingData(): TrackingData {
     utm_campaign: params.get("utm_campaign") || "",
     utm_content: params.get("utm_content") || "",
     utm_term: params.get("utm_term") || "",
+    utm_matchtype: params.get("utm_matchtype") || params.get("matchtype") || "",
     gclid: params.get("gclid") || "",
     fbclid: params.get("fbclid") || "",
     msclkid: params.get("msclkid") || "",
