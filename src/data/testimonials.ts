@@ -39,4 +39,7 @@ export const videoTestimonials: {
   { id: "video-7", name: "Success Story", videoId: "ci0SHiva5ac", poster: "/images/testimonials/testimonial-7.webp" },
   { id: "video-8", name: "Success Story", videoId: "RCeaCc6wK8k", poster: "/images/testimonials/testimonial-8.webp" },
   { id: "video-9", name: "Success Story", videoId: "EJ9eHCT-fkg", poster: "/images/testimonials/testimonial-9.webp" },
+  { id: "video-10", name: "Comfortable", videoId: "qjwXmItUufA", poster: "" },
+  { id: "video-11", name: "Experience", videoId: "IH2ucKNQwRQ", poster: "" },
+  { id: "video-12", name: "Community", videoId: "nkERQ3pRuIk", poster: "" },
 ];

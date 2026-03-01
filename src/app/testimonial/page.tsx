@@ -1,12 +1,14 @@
 import { generatePageMetadata } from "@/lib/metadata";
 import Hero from "@/components/sections/Hero";
 import Container from "@/components/layout/Container";
-import { testimonials } from "@/data/testimonials";
+import { testimonials, videoTestimonials } from "@/data/testimonials";
 import Image from "next/image";
+import YouTubeEmbed from "@/components/ui/YouTubeEmbed";
+import SuccessStoriesSection from "@/components/sections/SuccessStoriesWrapper";
 import ContactFooterSection from "@/components/sections/ContactFooterSection";
 
 export const metadata = generatePageMetadata({
-  title: "Testimonial",
+  title: "Testimonials",
   description:
     "Read success stories from Spurling Fitness clients. Real people, real results — see how our personal training helps adults over 50 transform their lives.",
   path: "/testimonial/",
@@ -18,18 +20,62 @@ export default function TestimonialPage() {
       <Hero
         backgroundImage="/images/heroes/dsc-1017.webp"
         headline="Testimonials"
-        subheadline="Discover how our programs have transformed lives and helped our members achieve their fitness goals. Read real stories and experiences from our dedicated community at Spurling Fitness."
+        subheadline="Discover how our programs have transformed lives and helped our members achieve their fitness goals. Real stories from our dedicated community at Spurling Fitness."
         ctaText="Talk to a Trainer!"
         ctaHref="/contact-us/"
         align="left"
       />
 
-      {/* Testimonials Grid */}
-      <section className="bg-white py-16 sm:py-20">
+      {/* ─── VIDEO TESTIMONIALS ─── */}
+      <section
+        className="relative bg-brand-dark py-20 sm:py-28"
+        style={{
+          backgroundImage: "url(/images/dividers/wholevertical-01-mod.svg)",
+          backgroundSize: "800px",
+          backgroundRepeat: "repeat-x",
+          backgroundPosition: "50% 0%",
+        }}
+      >
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage: "url(/images/dividers/vertical-01-reflected.svg)",
+            backgroundSize: "800px",
+            backgroundPosition: "50% 100%",
+            backgroundRepeat: "repeat-x",
+          }}
+        />
+        <Container className="relative z-[1]">
+          <h2 className="mb-4 text-center font-heading text-4xl font-semibold uppercase text-white sm:text-5xl">
+            Success Stories
+          </h2>
+          <p className="mx-auto mb-12 max-w-2xl text-center text-lg text-gray-300">
+            Hear directly from our members about how Spurling Fitness changed their lives.
+          </p>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {videoTestimonials.map((video) => (
+              <YouTubeEmbed
+                key={video.id}
+                videoId={video.videoId}
+                title={video.name}
+                poster={video.poster}
+              />
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* ─── WRITTEN TESTIMONIALS ─── */}
+      <section className="bg-white py-20 sm:py-28">
         <Container>
-          <h2 className="mb-12 text-center font-heading text-4xl font-semibold uppercase text-brand-dark sm:text-6xl md:text-[76px]" style={{ lineHeight: "1" }}>
+          <h2
+            className="mb-4 text-center font-heading text-4xl font-semibold uppercase text-brand-dark sm:text-5xl"
+          >
             Stories That Inspire
           </h2>
+          <p className="mx-auto mb-12 max-w-2xl text-center text-lg text-brand-gray-light">
+            Real results from real people — our members share what training at Spurling means to them.
+          </p>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {testimonials.map((t) => (
               <div
@@ -48,7 +94,7 @@ export default function TestimonialPage() {
                   </div>
                 )}
                 <div className="p-6">
-                  <p className="mb-3 text-sm leading-relaxed text-brand-gray">
+                  <p className="mb-3 text-base leading-relaxed text-brand-gray">
                     &ldquo;{t.quote}&rdquo;
                   </p>
                   <p className="font-heading text-sm font-semibold text-brand-dark">
@@ -60,6 +106,9 @@ export default function TestimonialPage() {
           </div>
         </Container>
       </section>
+
+      {/* ─── GOOGLE REVIEWS CAROUSEL ─── */}
+      <SuccessStoriesSection />
 
       {/* Grunge divider + Contact Footer */}
       <ContactFooterSection source="testimonial-page" />

@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 
 import Header from "@/components/layout/Header";
+import AnnouncementBanner from "@/components/layout/AnnouncementBanner";
 import TrackingCapture from "@/components/TrackingCapture";
 import Footer from "@/components/layout/Footer";
 import { FormModalProvider } from "@/components/ui/FormModal";
@@ -107,6 +108,7 @@ export default function RootLayout({
         <PostHogProvider>
           <TrackingCapture />
           <FormModalProvider>
+            <AnnouncementBanner />
             <div className="relative">
               <Header />
               <main>{children}</main>
