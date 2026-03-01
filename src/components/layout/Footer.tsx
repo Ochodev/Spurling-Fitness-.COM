@@ -1,9 +1,16 @@
 import Link from "next/link";
 import Container from "./Container";
 import SchedulePricingLink from "./SchedulePricingLink";
-import { footerNavLinks } from "@/data/navigation";
 import { locations } from "@/data/locations";
 import { BRAND } from "@/lib/constants";
+
+const quickLinks = [
+  { label: "Who We Are", href: "/about-us/" },
+  { label: "What We Do", href: "/what-we-do/" },
+  { label: "Stories", href: "/testimonial/" },
+  { label: "FAQ", href: "/faq/" },
+  { label: "Contact Us", href: "/contact-us/" },
+];
 
 export default function Footer() {
   return (
@@ -12,7 +19,7 @@ export default function Footer() {
       <div className="border-t-2 border-brand-red" />
 
       <Container className="py-12 sm:py-16">
-        <div className="grid gap-10 md:grid-cols-3">
+        <div className="grid gap-10 md:grid-cols-4">
           {/* Column 1 — About Us */}
           <div>
             <h3 className="mb-4 font-poppins text-[19px] font-bold leading-[19px] text-brand-red">
@@ -26,65 +33,69 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Column 2 — Menu */}
+          {/* Column 2 — Quick Links */}
           <div>
             <h3 className="mb-4 font-poppins text-[19px] font-bold leading-[19px] text-brand-red">
-              Menu
+              Quick Links
             </h3>
             <nav className="flex flex-col gap-2">
-              {footerNavLinks.map((link) =>
-                link.label === "Schedule & Pricing" ? (
-                  <SchedulePricingLink
-                    key={link.label}
-                    className="font-poppins text-[19px] font-normal leading-[20px] text-white transition-colors hover:text-brand-red"
-                  >
-                    {link.label}
-                  </SchedulePricingLink>
-                ) : (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    className="font-poppins text-[19px] font-normal leading-[20px] text-white no-underline transition-colors hover:text-brand-red"
-                  >
-                    {link.label}
-                  </Link>
-                )
-              )}
+              <SchedulePricingLink className="font-poppins text-[16px] font-normal leading-[22px] text-white transition-colors hover:text-brand-red">
+                Schedule &amp; Pricing
+              </SchedulePricingLink>
+              {quickLinks.map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className="font-poppins text-[16px] font-normal leading-[22px] text-white no-underline transition-colors hover:text-brand-red"
+                >
+                  {link.label}
+                </Link>
+              ))}
             </nav>
           </div>
 
-          {/* Column 3 — Contacts */}
+          {/* Column 3 — Locations */}
           <div>
             <h3 className="mb-4 font-poppins text-[19px] font-bold leading-[19px] text-brand-red">
-              Contacts
+              Locations
             </h3>
-
-            {/* Locations with pin icon + bold labels */}
-            <ul className="mb-4 list-none space-y-4 p-0">
+            <ul className="list-none space-y-4 p-0">
               {locations.map((loc) => (
-                <li key={loc.id}>
-                  <a
-                    href={loc.mapUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-start gap-3 text-white no-underline hover:text-brand-red"
+                <li key={loc.id} className="flex items-start gap-3">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="mt-0.5 h-5 w-5 shrink-0 text-brand-red"
                   >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="mt-0.5 h-5 w-5 shrink-0 text-brand-red"
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                  </svg>
+                  <span>
+                    <Link
+                      href={`/locations/${loc.id}/`}
+                      className="block font-bold text-white no-underline transition-colors hover:text-brand-red"
                     >
-                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-                    </svg>
-                    <span>
-                      <strong className="block">{loc.name} Address</strong>
+                      {loc.name}
+                    </Link>
+                    <a
+                      href={loc.mapUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-300 no-underline transition-colors hover:text-brand-red"
+                    >
                       {loc.address}, {loc.city}, {loc.state} {loc.zip}
-                    </span>
-                  </a>
+                    </a>
+                  </span>
                 </li>
               ))}
+            </ul>
+          </div>
 
-              {/* Call */}
+          {/* Column 4 — Contact */}
+          <div>
+            <h3 className="mb-4 font-poppins text-[19px] font-bold leading-[19px] text-brand-red">
+              Contact
+            </h3>
+            <ul className="list-none space-y-4 p-0">
               <li>
                 <a
                   href={BRAND.phoneHref}
@@ -98,8 +109,6 @@ export default function Footer() {
                   </span>
                 </a>
               </li>
-
-              {/* Text */}
               <li>
                 <a
                   href={BRAND.textPhoneHref}
@@ -113,8 +122,6 @@ export default function Footer() {
                   </span>
                 </a>
               </li>
-
-              {/* Email */}
               <li>
                 <a
                   href={BRAND.emailHref}
@@ -124,8 +131,7 @@ export default function Footer() {
                     <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                   </svg>
                   <span>
-                    <strong>Email</strong><br />
-                    {BRAND.email}
+                    <strong>Email:</strong> {BRAND.email}
                   </span>
                 </a>
               </li>
@@ -140,12 +146,12 @@ export default function Footer() {
       {/* Copyright bar */}
       <Container className="py-4">
         <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">
-          <h3 className="font-poppins text-[17px] font-normal leading-[17px] text-brand-red">
-            © {new Date().getFullYear()} Spurling Fitness. All Rights Reserved.
-          </h3>
+          <p className="font-poppins text-sm text-gray-400">
+            &copy; {new Date().getFullYear()} Spurling Fitness. All Rights Reserved.
+          </p>
           <Link
             href="/privacy-policy/"
-            className="font-poppins text-[17px] leading-[17px] font-normal text-brand-red no-underline rounded-[3px] bg-[#a5a5a5] px-6 py-3 hover:opacity-80 transition-opacity"
+            className="font-poppins text-sm text-gray-400 no-underline transition-colors hover:text-white"
           >
             Privacy Policy
           </Link>
