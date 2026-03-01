@@ -4,7 +4,6 @@ import { generatePageMetadata } from "@/lib/metadata";
 import Container from "@/components/layout/Container";
 import ContactForm from "@/components/forms/ContactForm";
 import YouTubeEmbed from "@/components/ui/YouTubeEmbed";
-import SelfHostedVideo from "@/components/ui/SelfHostedVideo";
 import SuccessStoriesSection from "@/components/sections/SuccessStoriesWrapper";
 import { fetchAllLocationReviews } from "@/lib/google-reviews";
 import { videoTestimonials } from "@/data/testimonials";
@@ -59,7 +58,7 @@ export default async function FoundersPage() {
           priority
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-black/55" />
         {/* Brushstroke bottom edge */}
         <div
           className="pointer-events-none absolute inset-0 z-[3]"
@@ -80,10 +79,10 @@ export default async function FoundersPage() {
                 </svg>
               ))}
             </div>
-            <span className="text-sm font-semibold text-white">
+            <span className="text-base font-bold text-white">
               {averageRating.toFixed(1)}
             </span>
-            <span className="text-sm text-white/80">
+            <span className="text-sm font-bold text-white">
               from {totalReviews}+ Google Reviews
             </span>
             <svg viewBox="0 0 24 24" className="ml-1 h-4 w-4" fill="none" aria-hidden="true">
@@ -94,34 +93,19 @@ export default async function FoundersPage() {
             </svg>
           </div>
 
-          <h1 className="font-heading text-4xl font-semibold uppercase text-white sm:text-5xl md:text-[56px]" style={{ lineHeight: "1.1" }}>
+          <h1 className="font-heading text-4xl font-extrabold uppercase text-white sm:text-5xl md:text-[56px]" style={{ lineHeight: "1.1", textShadow: "0 2px 8px rgba(0,0,0,0.4)" }}>
             Get Stronger, Move Better<br />
             <span className="text-brand-red">&amp; Feel Amazing at 50+</span>
           </h1>
-          <h2 className="mx-auto mt-4 max-w-2xl font-heading text-xl font-normal text-white sm:text-2xl" style={{ lineHeight: "1.3" }}>
+          <h2 className="mx-auto mt-4 max-w-2xl font-heading text-xl font-bold text-white sm:text-2xl" style={{ lineHeight: "1.3", textShadow: "0 2px 6px rgba(0,0,0,0.35)" }}>
             Move Without Pain.<br />
             Feel Energetic Again.<br />
             Enjoy Life on <span className="underline">YOUR</span> Terms.
           </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/90">
+          <p className="mx-auto mt-6 max-w-2xl text-lg font-bold leading-relaxed text-white" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.3)" }}>
             Finally... a personal training gym in South Portland that{" "}
             <strong className="text-white">UNDERSTANDS</strong> how the 50+ body actually works.
-            <span className="mt-2 block text-base text-white/70">
-              Expert coaches specializing in strength, mobility &amp; pain-free movement for adults over 50.
-            </span>
           </p>
-
-          {/* Micro-benefits strip */}
-          <div className="mx-auto mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-            {["Customized to Your Body", "Expert 50+ Coaches", "No Long-Term Contracts"].map((benefit) => (
-              <div key={benefit} className="flex items-center gap-1.5">
-                <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 shrink-0 text-brand-red" aria-hidden="true">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-                <span className="text-sm font-medium text-white/90">{benefit}</span>
-              </div>
-            ))}
-          </div>
 
           <div className="mt-8">
             <FoundersCTA className="mx-auto max-w-xl" />
@@ -133,21 +117,9 @@ export default async function FoundersPage() {
       <section className="bg-white py-10 sm:py-14">
         <Container>
           <div className="grid gap-6 sm:grid-cols-3">
-            <SelfHostedVideo
-              src="https://spurlingfitness.com/wp-content/uploads/video-5-spurling-5mp4.mp4"
-              poster="https://spurlingfitness.com/wp-content/uploads/CleanShot-2025-11-06-at-16.56.02.png"
-              label="COMFORTABLE"
-            />
-            <SelfHostedVideo
-              src="https://spurlingfitness.com/wp-content/uploads/video-4-spurling-4.mp4"
-              poster="https://spurlingfitness.com/wp-content/uploads/CleanShot-2025-11-06-at-16.54.44.png"
-              label="EXPERIENCE."
-            />
-            <SelfHostedVideo
-              src="https://spurlingfitness.com/wp-content/uploads/video-2-spurling-2mp4.mp4"
-              poster="https://spurlingfitness.com/wp-content/uploads/CleanShot-2025-11-06-at-17.00.32.png"
-              label="COMMUNITY."
-            />
+            <YouTubeEmbed videoId="qjwXmItUufA" title="COMFORTABLE" className="!aspect-[9/16]" />
+            <YouTubeEmbed videoId="IH2ucKNQwRQ" title="EXPERIENCE." className="!aspect-[9/16]" />
+            <YouTubeEmbed videoId="nkERQ3pRuIk" title="COMMUNITY." className="!aspect-[9/16]" />
           </div>
         </Container>
       </section>

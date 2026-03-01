@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { usePostHog } from "posthog-js/react";
 
 interface JobApplicationFormProps {
   className?: string;
@@ -8,6 +9,7 @@ interface JobApplicationFormProps {
 
 export default function JobApplicationForm({ className = "" }: JobApplicationFormProps) {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const posthog = usePostHog();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,6 +34,14 @@ export default function JobApplicationForm({ className = "" }: JobApplicationFor
       });
 
       if (!res.ok) throw new Error("Failed to submit");
+
+      posthog.identify(data.email as string, {
+        first_name: data.firstName as string,
+        last_name: data.lastName as string,
+        phone: data.phone as string,
+      });
+      posthog.capture("job_application_submitted");
+
       setStatus("success");
     } catch {
       setStatus("error");

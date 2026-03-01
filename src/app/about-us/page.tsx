@@ -16,7 +16,7 @@ export default function AboutUsPage() {
   return (
     <>
       <Hero
-        backgroundImage="/images/heroes/dsc-0926.webp"
+        backgroundImage="/images/heroes/dsc-1042-hero.webp"
         headline="Welcome to Spurling Fitness"
         subheadline="We're more than a gym, we're a community across Kennebunk, Scarborough, and South Portland areas dedicated to helping individuals over 50 find confidence, strength, and wellness in every step of their journey."
         ctaText="Talk to a Trainer!"

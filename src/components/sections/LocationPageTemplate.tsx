@@ -205,7 +205,7 @@ export default function LocationPageTemplate({
                 no-obligation introductory meeting at our {locationName} location.
                 We&apos;ll learn about your goals and show you exactly how we can help.
               </p>
-              <ContactForm source={formSource} />
+              <ContactForm source={formSource} locationDefault={locationName.toLowerCase().replace(" ", "-")} />
             </div>
           </div>
         </Container>

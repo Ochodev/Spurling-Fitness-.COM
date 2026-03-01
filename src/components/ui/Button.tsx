@@ -1,7 +1,8 @@
 import Link from "next/link";
 
 interface ButtonProps {
-  href: string;
+  href?: string;
+  onClick?: () => void;
   children: React.ReactNode;
   variant?: "filled" | "outlined";
   className?: string;
@@ -10,6 +11,7 @@ interface ButtonProps {
 
 export default function Button({
   href,
+  onClick,
   children,
   variant = "filled",
   className = "",
@@ -30,11 +32,18 @@ export default function Button({
       "border-2 border-brand-red text-brand-red bg-transparent hover:bg-brand-red hover:text-white",
   };
 
+  const classes = `${base} ${sizes[size]} ${variants[variant]} ${className}`;
+
+  if (onClick) {
+    return (
+      <button onClick={onClick} className={`cursor-pointer ${classes}`}>
+        {children}
+      </button>
+    );
+  }
+
   return (
-    <Link
-      href={href}
-      className={`${base} ${sizes[size]} ${variants[variant]} ${className}`}
-    >
+    <Link href={href!} className={classes}>
       {children}
     </Link>
   );

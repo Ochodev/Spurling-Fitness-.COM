@@ -36,6 +36,21 @@ const nextConfig: NextConfig = {
         destination: "/what-we-do/small-group-personal-training/",
         permanent: true,
       },
+      {
+        source: "/10market",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/beacon",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/rivers-edge",
+        destination: "/",
+        permanent: true,
+      },
     ];
   },
 };

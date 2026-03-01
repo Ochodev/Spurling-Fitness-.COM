@@ -47,11 +47,22 @@ export default function NutritionPage() {
               <em>you</em>. Your schedule. Your preferences. Your real life.
             </p>
             <p>We focus on sustainable changes that help you:</p>
-            <ul className="mx-auto max-w-md space-y-2 text-left">
-              <li>Lose weight without extreme restriction</li>
-              <li>Fuel your workouts and recovery</li>
-              <li>Build confidence around food</li>
-              <li>Stay consistent — even when life gets busy</li>
+            <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+              {[
+                "Lose weight without extreme restriction",
+                "Fuel your workouts and recovery",
+                "Build confidence around food",
+                "Stay consistent — even when life gets busy",
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-2">
+                  <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-red">
+                    <svg viewBox="0 0 24 24" fill="white" className="h-3 w-3">
+                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                    </svg>
+                  </div>
+                  <span>{item}</span>
+                </li>
+              ))}
             </ul>
           </div>
         </Container>

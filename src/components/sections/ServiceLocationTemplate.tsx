@@ -315,7 +315,7 @@ export default function ServiceLocationTemplate({
       </section>
 
       <SuccessStoriesSection />
-      <ContactFooterSection source={formSource} />
+      <ContactFooterSection source={formSource} locationDefault={locationSlug} />
     </>
   );
 }

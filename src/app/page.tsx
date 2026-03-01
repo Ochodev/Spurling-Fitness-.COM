@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Container from "@/components/layout/Container";
 import Button from "@/components/ui/Button";
+import TalkToTrainerButton from "@/components/ui/TalkToTrainerButton";
 import ContactForm from "@/components/forms/ContactForm";
 import SuccessStoriesSection from "@/components/sections/SuccessStoriesWrapper";
 
@@ -49,7 +50,7 @@ export default function HomePage() {
               BEST PERSONAL TRAINING GYM{" "}
               <span className="text-brand-red">FOR PEOPLE OVER 50</span>
             </h1>
-            <p className="text-[16px] leading-[24px] text-brand-dark" style={{ width: "486px", maxWidth: "100%", marginBottom: "14.4px" }}>
+            <p className="mt-6 text-[16px] leading-[24px] text-brand-dark" style={{ width: "486px", maxWidth: "100%", marginBottom: "14.4px" }}>
               At Spurling Fitness, we help busy individuals over 50 create
               enjoyable fitness routines, establish lasting habits, and achieve
               results that empower their lives. With three convenient locations
@@ -60,13 +61,7 @@ export default function HomePage() {
               we&apos;re here every step of the way.
             </p>
             <div className="mt-0" style={{ marginBottom: "30px" }}>
-              <Button
-                href="/contact-us/"
-                variant="outlined"
-                size="large"
-              >
-                TALK TO A TRAINER!
-              </Button>
+              <TalkToTrainerButton variant="outlined" size="large" />
             </div>
           </div>
         </div>
@@ -74,7 +69,7 @@ export default function HomePage() {
 
       {/* ──────────── STRUGGLING + 3-STEP (Dark Section with Grunge Top + Bottom) ──────────── */}
       <section
-        className="relative bg-brand-dark py-16 sm:py-24"
+        className="relative bg-brand-dark pt-24 pb-16 sm:pt-36 sm:pb-24"
         style={{
           backgroundImage: "url(/images/dividers/wholevertical-01-mod.svg)",
           backgroundSize: "800px",
@@ -112,21 +107,21 @@ export default function HomePage() {
                 title: "Book Your Introductory Meeting",
                 description:
                   "We'll meet at one of our three locations to learn more about your goals and challenges.",
-                image: "/images/heroes/dsc-1003.webp",
+                image: "/images/heroes/img-0601.webp",
               },
               {
                 number: "2",
                 title: "We'll Customize Your Program",
                 description:
                   "Whether you're new to fitness or looking for a change, we'll tailor your program to your level, goals, and any injuries.",
-                image: "/images/heroes/dsc-1017.webp",
+                image: "/images/heroes/dsc-1003.webp",
               },
               {
                 number: "3",
                 title: "Try Our Program Risk-Free For 28 Days",
                 description:
                   "Every time you walk in, your workout is ready — with your coach and your community by your side.",
-                image: "/images/heroes/dsc-1042.webp",
+                image: "/images/heroes/dsc-1017.webp",
               },
             ].map((step) => (
               <div
@@ -143,11 +138,11 @@ export default function HomePage() {
                   />
                   <div className="absolute inset-0 bg-black/50" />
 
-                  <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-                    <h2 className="font-heading text-[200px] font-semibold leading-[200px] text-white/80">
-                      {step.number}
-                    </h2>
-                    <h3 className="-mt-12 font-heading text-[28px] font-semibold uppercase leading-[28px] text-white">
+                  <h2 className="absolute right-4 top-4 font-heading text-[200px] font-semibold leading-none text-white/80">
+                    {step.number}
+                  </h2>
+                  <div className="absolute inset-0 flex flex-col items-center justify-end p-6 pb-10 text-center">
+                    <h3 className="font-heading text-[28px] font-semibold uppercase leading-[28px] text-white">
                       {step.title}
                     </h3>
                     <p className="mt-3 text-[16px] leading-[24px] text-white">
@@ -160,9 +155,7 @@ export default function HomePage() {
           </div>
 
           <div className="mt-12">
-            <Button href="/contact-us/" variant="filled" size="large">
-              TALK TO A TRAINER!
-            </Button>
+            <TalkToTrainerButton variant="filled" size="large" />
           </div>
         </Container>
       </section>
@@ -186,9 +179,7 @@ export default function HomePage() {
                 do the same.
               </p>
               <div className="mt-8">
-                <Button href="/contact-us/" variant="outlined" size="large">
-                  TALK TO A TRAINER!
-                </Button>
+                <TalkToTrainerButton variant="outlined" size="large" />
               </div>
             </div>
 
@@ -207,7 +198,7 @@ export default function HomePage() {
 
       {/* ──────────── PERSONAL TRAINING SERVICES (Dark Section with Grunge Top + Bottom) ──────────── */}
       <section
-        className="relative bg-brand-dark py-16 sm:py-24"
+        className="relative bg-brand-dark pt-24 pb-24 sm:pt-44 sm:pb-44"
         style={{
           backgroundImage: "url(/images/dividers/wholevertical-01-mod.svg)",
           backgroundSize: "800px",
@@ -234,21 +225,21 @@ export default function HomePage() {
                 title: "PRIVATE ONE-ON-ONE TRAINING",
                 description:
                   "Experience personalized training sessions tailored to your specific needs and goals, ensuring maximum results and continuous support.",
-                image: "/images/heroes/dsc-1003.webp",
+                image: "/images/heroes/dsc-0906.webp",
                 href: "/what-we-do/private-one-on-one/",
               },
               {
                 title: "SMALL GROUP PERSONAL TRAINING",
                 description:
                   "Enjoy the benefits of a customized workout in a supportive, small group setting. Get individualized routines and guidance, while sharing the experience with others.",
-                image: "/images/heroes/dsc-0906.webp",
+                image: "/images/heroes/dsc-1042.webp",
                 href: "/what-we-do/small-group-personal-training/",
               },
               {
                 title: "NUTRITIONAL GUIDANCE",
                 description:
                   "Get expert nutritional advice to complement your fitness routine, helping you make healthier choices and achieve your wellness goals.",
-                image: "/images/misc/nutrition-food.webp",
+                image: "/images/misc/nutrition-guide.webp",
                 href: "/what-we-do/nutritional-guidance/",
               },
             ].map((service) => (

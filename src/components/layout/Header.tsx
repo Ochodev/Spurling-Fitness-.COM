@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import MobileMenu from "./MobileMenu";
 import { mainNavLinks } from "@/data/navigation";
-import { useFormModal } from "@/components/ui/FormModal";
+import { useFormModal, SCHEDULE_PRICING_HEADER } from "@/components/ui/FormModal";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -29,29 +29,37 @@ export default function Header() {
         {/* Desktop Nav */}
         <nav className="hidden items-center gap-6 lg:flex">
           <button
-            onClick={openFormModal}
+            onClick={() => openFormModal(SCHEDULE_PRICING_HEADER)}
             className="cursor-pointer bg-transparent font-heading text-[20px] leading-[20px] font-medium text-brand-red hover:text-brand-red-dark transition-colors border-none p-0"
           >
             Schedule &amp; Pricing
           </button>
-          <Link
-            href="/contact-us/"
-            className="inline-block rounded-[5px] border border-brand-red bg-brand-red px-6 py-3 font-heading text-[15px] leading-[15px] font-normal text-white no-underline transition-colors hover:bg-brand-red-dark hover:border-brand-red-dark"
+          <button
+            onClick={() => openFormModal()}
+            className="cursor-pointer inline-block rounded-[5px] border border-brand-red bg-brand-red px-6 py-3 font-heading text-[15px] leading-[15px] font-normal text-white no-underline transition-colors hover:bg-brand-red-dark hover:border-brand-red-dark"
           >
             TALK TO A TRAINER
-          </Link>
+          </button>
         </nav>
 
-        {/* Mobile hamburger */}
-        <button
-          onClick={() => setMobileMenuOpen(true)}
-          className="flex flex-col gap-[5px] lg:hidden cursor-pointer p-2"
-          aria-label="Open menu"
-        >
-          <span className="block h-[3px] w-[25px] bg-white" />
-          <span className="block h-[3px] w-[25px] bg-white" />
-          <span className="block h-[3px] w-[25px] bg-white" />
-        </button>
+        {/* Mobile: CTA + hamburger */}
+        <div className="flex items-center gap-3 lg:hidden">
+          <button
+            onClick={() => openFormModal()}
+            className="cursor-pointer rounded-[5px] border border-brand-red bg-brand-red px-3 py-2 font-heading text-[12px] leading-[12px] font-normal uppercase tracking-wider text-white transition-colors hover:bg-brand-red-dark hover:border-brand-red-dark"
+          >
+            Talk to a Trainer
+          </button>
+          <button
+            onClick={() => setMobileMenuOpen(true)}
+            className="flex flex-col gap-[5px] cursor-pointer p-2"
+            aria-label="Open menu"
+          >
+            <span className="block h-[3px] w-[25px] bg-white" />
+            <span className="block h-[3px] w-[25px] bg-white" />
+            <span className="block h-[3px] w-[25px] bg-white" />
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}

@@ -4,19 +4,10 @@ import { useState, FormEvent } from "react";
 import { usePostHog } from "posthog-js/react";
 import { getTrackingData } from "@/lib/tracking";
 
-interface ContactFormProps {
-  source?: string;
-  locationDefault?: string;
-  submitLabel?: string;
-  className?: string;
-}
+const inputStyles =
+  "w-full rounded-md border border-gray-300 px-4 py-3.5 text-base font-medium text-brand-gray outline-none transition-colors focus:border-brand-red focus:ring-1 focus:ring-brand-red";
 
-export default function ContactForm({
-  source = "website",
-  locationDefault = "",
-  submitLabel = "Get Started",
-  className = "",
-}: ContactFormProps) {
+export default function GiveawayForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
   const posthog = usePostHog();
 
@@ -38,7 +29,9 @@ export default function ContactForm({
       email: formData.get("email"),
       phone: formData.get("phone"),
       location: formData.get("location"),
-      source,
+      contactPreference: formData.get("contactPreference"),
+      whyWin: formData.get("whyWin"),
+      source: "giveaway-page",
       page_url: window.location.href,
       ...tracking,
     };
@@ -56,8 +49,8 @@ export default function ContactForm({
         name: fullName,
         phone: data.phone as string,
       });
-      posthog.capture("lead_form_submitted", {
-        source,
+      posthog.capture("giveaway_entry_submitted", {
+        source: "giveaway-page",
         location: data.location,
         page_url: data.page_url,
       });
@@ -72,52 +65,34 @@ export default function ContactForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className={`space-y-5 ${className}`}>
+    <form onSubmit={handleSubmit} className="space-y-5">
       {/* Full Name */}
       <div>
-        <label htmlFor="fullName" className="mb-1 block text-sm font-medium text-brand-gray">
+        <label htmlFor="gw-fullName" className="mb-1.5 block text-base font-bold text-brand-dark">
           Full Name *
         </label>
-        <input
-          type="text"
-          id="fullName"
-          name="fullName"
-          required
-          className="w-full rounded-md border border-gray-300 px-4 py-3 text-brand-gray outline-none transition-colors focus:border-brand-red focus:ring-1 focus:ring-brand-red"
-        />
+        <input type="text" id="gw-fullName" name="fullName" required className={inputStyles} />
       </div>
 
       {/* Phone */}
       <div>
-        <label htmlFor="phone" className="mb-1 block text-sm font-medium text-brand-gray">
+        <label htmlFor="gw-phone" className="mb-1.5 block text-base font-bold text-brand-dark">
           Phone *
         </label>
-        <input
-          type="tel"
-          id="phone"
-          name="phone"
-          required
-          className="w-full rounded-md border border-gray-300 px-4 py-3 text-brand-gray outline-none transition-colors focus:border-brand-red focus:ring-1 focus:ring-brand-red"
-        />
+        <input type="tel" id="gw-phone" name="phone" required className={inputStyles} />
       </div>
 
       {/* Email */}
       <div>
-        <label htmlFor="email" className="mb-1 block text-sm font-medium text-brand-gray">
+        <label htmlFor="gw-email" className="mb-1.5 block text-base font-bold text-brand-dark">
           Email *
         </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          className="w-full rounded-md border border-gray-300 px-4 py-3 text-brand-gray outline-none transition-colors focus:border-brand-red focus:ring-1 focus:ring-brand-red"
-        />
+        <input type="email" id="gw-email" name="email" required className={inputStyles} />
       </div>
 
-      {/* Location — Radio buttons */}
+      {/* Location */}
       <div>
-        <p className="mb-2 text-sm font-medium text-brand-gray">
+        <p className="mb-2 text-base font-bold text-brand-dark">
           Which Location Are You Interested In? *
         </p>
         <div className="space-y-2">
@@ -131,14 +106,48 @@ export default function ContactForm({
                 type="radio"
                 name="location"
                 value={loc.value}
-                defaultChecked={locationDefault === loc.value}
                 required
                 className="h-4 w-4 border-gray-300 text-brand-red accent-brand-red"
               />
-              <span className="text-sm text-brand-gray">{loc.label}</span>
+              <span className="text-base font-medium text-brand-gray">{loc.label}</span>
             </label>
           ))}
         </div>
+      </div>
+
+      {/* Contact Preference */}
+      <div>
+        <p className="mb-2 text-base font-bold text-brand-dark">
+          How Do You Prefer to Be Contacted? *
+        </p>
+        <div className="space-y-2">
+          {["Phone Call", "Text Message", "Email"].map((pref) => (
+            <label key={pref} className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="contactPreference"
+                value={pref.toLowerCase().replace(" ", "-")}
+                required
+                className="h-4 w-4 border-gray-300 text-brand-red accent-brand-red"
+              />
+              <span className="text-base font-medium text-brand-gray">{pref}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Why Win */}
+      <div>
+        <label htmlFor="gw-whyWin" className="mb-1.5 block text-base font-bold text-brand-dark">
+          What Would It Mean to You to Win This? *
+        </label>
+        <textarea
+          id="gw-whyWin"
+          name="whyWin"
+          required
+          rows={5}
+          className={`${inputStyles} resize-none`}
+        />
       </div>
 
       {/* SMS Consent */}
@@ -168,9 +177,9 @@ export default function ContactForm({
       <button
         type="submit"
         disabled={status === "loading"}
-        className="w-full cursor-pointer rounded-[5px] bg-brand-red px-8 py-4 font-heading text-[17px] font-semibold uppercase tracking-wider text-white transition-colors hover:bg-brand-red-dark disabled:opacity-60 disabled:cursor-not-allowed"
+        className="w-full cursor-pointer rounded-[5px] bg-brand-red px-8 py-5 font-heading text-xl font-bold uppercase tracking-wider text-white transition-colors hover:bg-brand-red-dark disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        {status === "loading" ? "Sending..." : submitLabel}
+        {status === "loading" ? "Submitting..." : "Enter the Giveaway"}
       </button>
     </form>
   );

@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 
 interface CountdownTimerProps {
-  targetDate: string; // ISO date string
+  targetDate?: string; // ISO date string
+  daysFromNow?: number; // always show this many days from page load
   className?: string;
 }
 
@@ -14,8 +15,8 @@ interface TimeLeft {
   seconds: number;
 }
 
-function calculateTimeLeft(targetDate: string): TimeLeft {
-  const difference = new Date(targetDate).getTime() - Date.now();
+function calculateTimeLeft(target: number): TimeLeft {
+  const difference = target - Date.now();
   if (difference <= 0) {
     return { days: 0, hours: 0, minutes: 0, seconds: 0 };
   }
@@ -29,16 +30,23 @@ function calculateTimeLeft(targetDate: string): TimeLeft {
 
 export default function CountdownTimer({
   targetDate,
+  daysFromNow,
   className = "",
 }: CountdownTimerProps) {
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft(targetDate));
+  const [target] = useState(() => {
+    if (daysFromNow !== undefined) {
+      return Date.now() + daysFromNow * 24 * 60 * 60 * 1000;
+    }
+    return new Date(targetDate ?? "").getTime();
+  });
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft(target));
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft(targetDate));
+      setTimeLeft(calculateTimeLeft(target));
     }, 1000);
     return () => clearInterval(timer);
-  }, [targetDate]);
+  }, [target]);
 
   const blocks = [
     { label: "Days", value: timeLeft.days },

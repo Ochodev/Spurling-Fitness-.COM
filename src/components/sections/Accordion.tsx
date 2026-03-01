@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
 interface AccordionItem {
   question: string;
-  answer: string;
+  answer: ReactNode;
 }
 
 interface AccordionProps {
@@ -13,7 +13,7 @@ interface AccordionProps {
 }
 
 export default function Accordion({ items, className = "" }: AccordionProps) {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -27,7 +27,7 @@ export default function Accordion({ items, className = "" }: AccordionProps) {
             onClick={() => toggle(index)}
             className="flex w-full cursor-pointer items-center justify-between py-5 text-left transition-colors hover:text-brand-red"
           >
-            <span className="pr-4 font-heading text-lg font-semibold text-brand-dark">
+            <span className="pr-4 font-heading text-xl font-bold text-brand-dark">
               {item.question}
             </span>
             <span
@@ -40,12 +40,12 @@ export default function Accordion({ items, className = "" }: AccordionProps) {
           </button>
           <div
             className={`overflow-hidden transition-all duration-300 ${
-              openIndex === index ? "max-h-[1000px] pb-5" : "max-h-0"
+              openIndex === index ? "max-h-[3000px] pb-5" : "max-h-0"
             }`}
           >
-            <p className="whitespace-pre-line leading-relaxed text-brand-gray-light">
+            <div className="text-lg font-medium leading-relaxed text-brand-gray-light">
               {item.answer}
-            </p>
+            </div>
           </div>
         </div>
       ))}

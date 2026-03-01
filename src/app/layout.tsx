@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Kanit, Raleway, Teko, Poppins } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import AnnouncementBanner from "@/components/layout/AnnouncementBanner";
+
 import Header from "@/components/layout/Header";
+import TrackingCapture from "@/components/TrackingCapture";
 import Footer from "@/components/layout/Footer";
 import { FormModalProvider } from "@/components/ui/FormModal";
 import { PostHogProvider } from "./providers";
@@ -82,6 +83,12 @@ export default function RootLayout({
           fbq('init', '${process.env.NEXT_PUBLIC_FB_PIXEL_ID || "639844379451697"}');
           fbq('track', 'PageView');`}
         </Script>
+        {/* GoHighLevel External Tracking */}
+        <Script
+          src="https://link.msgsndr.com/js/external-tracking.js"
+          data-tracking-id="tk_62a0edaed1c846babd57de78c85a92d6"
+          strategy="afterInteractive"
+        />
         {/* JSON-LD Structured Data */}
         <OrganizationSchema />
       </head>
@@ -98,8 +105,8 @@ export default function RootLayout({
           />
         </noscript>
         <PostHogProvider>
+          <TrackingCapture />
           <FormModalProvider>
-            <AnnouncementBanner />
             <div className="relative">
               <Header />
               <main>{children}</main>

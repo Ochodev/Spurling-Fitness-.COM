@@ -1,4 +1,6 @@
 import { generatePageMetadata } from "@/lib/metadata";
+import Hero from "@/components/sections/Hero";
+import FaqAccordion from "@/components/sections/FaqAccordion";
 import SuccessStoriesSection from "@/components/sections/SuccessStoriesWrapper";
 import ContactFooterSection from "@/components/sections/ContactFooterSection";
 import FaqSchema from "@/components/seo/FaqSchema";
@@ -14,8 +16,15 @@ export default function FaqPage() {
   return (
     <>
       <FaqSchema />
-      {/* No hero — FAQ page goes straight to Success Stories with Google Reviews */}
-      <div className="pt-24" />
+      <Hero
+        backgroundImage="/images/heroes/dsc-1003.webp"
+        headline="Frequently Asked Questions"
+        subheadline="Everything you need to know about training at Spurling"
+        compact
+      />
+
+      <FaqAccordion />
+
       <SuccessStoriesSection />
 
       <ContactFooterSection source="faq" />

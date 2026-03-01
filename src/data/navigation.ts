@@ -18,4 +18,8 @@ export const footerNavLinks: NavLink[] = [
   { label: "Who We Are", href: "/about-us/" },
   { label: "What We Do", href: "/what-we-do/" },
   { label: "Stories", href: "/testimonial/" },
+  { label: "FAQ", href: "/faq/" },
+  { label: "Kennebunk", href: "/locations/kennebunk/" },
+  { label: "Scarborough", href: "/locations/scarborough/" },
+  { label: "South Portland", href: "/locations/south-portland/" },
 ];

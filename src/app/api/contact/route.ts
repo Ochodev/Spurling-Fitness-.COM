@@ -1,12 +1,19 @@
 import { NextResponse } from "next/server";
 
+const WEBHOOK_URLS: Record<string, string | undefined> = {
+  kennebunk: process.env.WEBHOOK_URL_KENNEBUNK,
+  scarborough: process.env.WEBHOOK_URL_SCARBOROUGH,
+  "south-portland": process.env.WEBHOOK_URL_SOUTH_PORTLAND,
+};
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    const webhookUrl = process.env.WEBHOOK_URL;
+    const webhookUrl =
+      WEBHOOK_URLS[body.location as string] || process.env.WEBHOOK_URL;
     if (!webhookUrl) {
-      console.error("WEBHOOK_URL not configured");
+      console.error(`No webhook configured for location: ${body.location}`);
       return NextResponse.json(
         { error: "Server configuration error" },
         { status: 500 }

@@ -11,7 +11,7 @@ export const metadata = generatePageMetadata({
 export default function GuestPassPage() {
   return (
     <LandingPageTemplate
-      heroImage="/images/heroes/dsc-0906.webp"
+      heroImage="/images/heroes/img-0601.webp"
       headline="Experience Spurling Fitness With a Free 7-Day Guest Pass"
       subheadline="Try our workouts, meet our coaches, and feel the difference — 100% commitment-free!"
       ctaText="Redeem Your Free 7-Day Pass!"

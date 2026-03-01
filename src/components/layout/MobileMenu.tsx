@@ -4,12 +4,13 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { NavLink } from "@/types";
 import { BRAND } from "@/lib/constants";
+import { SCHEDULE_PRICING_HEADER } from "@/components/ui/FormModal";
 
 interface MobileMenuProps {
   open: boolean;
   onClose: () => void;
   links: NavLink[];
-  onScheduleClick?: () => void;
+  onScheduleClick?: (headerText?: string) => void;
 }
 
 export default function MobileMenu({ open, onClose, links, onScheduleClick }: MobileMenuProps) {
@@ -57,7 +58,7 @@ export default function MobileMenu({ open, onClose, links, onScheduleClick }: Mo
                 key={`${link.label}-${link.href}`}
                 onClick={() => {
                   onClose();
-                  onScheduleClick();
+                  onScheduleClick(SCHEDULE_PRICING_HEADER);
                 }}
                 className="cursor-pointer border-b border-gray-100 bg-transparent py-4 text-left font-heading text-lg font-medium text-brand-dark transition-colors hover:text-brand-red border-t-0 border-x-0 p-0 px-0"
               >
@@ -78,13 +79,12 @@ export default function MobileMenu({ open, onClose, links, onScheduleClick }: Mo
 
         {/* CTA button */}
         <div className="mt-6 px-6">
-          <Link
-            href="/contact-us/"
-            onClick={onClose}
-            className="block rounded-[5px] bg-brand-red py-3 text-center font-heading text-[15px] font-normal uppercase tracking-wider text-white no-underline transition-colors hover:bg-brand-red-dark"
+          <button
+            onClick={() => { onClose(); onScheduleClick?.(); }}
+            className="block w-full cursor-pointer rounded-[5px] border-none bg-brand-red py-3 text-center font-heading text-[15px] font-normal uppercase tracking-wider text-white transition-colors hover:bg-brand-red-dark"
           >
             Talk to a Trainer
-          </Link>
+          </button>
         </div>
 
         {/* Contact info */}

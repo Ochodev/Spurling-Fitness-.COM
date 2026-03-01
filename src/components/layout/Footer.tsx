@@ -141,7 +141,7 @@ export default function Footer() {
       <Container className="py-4">
         <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">
           <h3 className="font-poppins text-[17px] font-normal leading-[17px] text-brand-red">
-            All Rights Reserved
+            © {new Date().getFullYear()} Spurling Fitness. All Rights Reserved.
           </h3>
           <Link
             href="/privacy-policy/"

@@ -3,6 +3,7 @@ import Hero from "@/components/sections/Hero";
 import Container from "@/components/layout/Container";
 import ContactForm from "@/components/forms/ContactForm";
 import SuccessStoriesSection from "@/components/sections/SuccessStoriesWrapper";
+import LandingCtaButton from "@/components/ui/LandingCtaButton";
 
 interface LandingPageTemplateProps {
   heroImage: string;
@@ -31,13 +32,16 @@ export default function LandingPageTemplate({
         backgroundImage={heroImage}
         headline={headline}
         subheadline={subheadline}
-        ctaText={ctaText}
-        ctaHref="#form"
+        ctaNode={
+          <LandingCtaButton className="inline-block rounded-[3px] border border-brand-red bg-brand-red px-[24px] py-[12px] font-heading text-[31px] leading-[31px] font-normal uppercase tracking-normal text-white no-underline transition-colors hover:bg-red-700 hover:border-red-700">
+            {ctaText}
+          </LandingCtaButton>
+        }
       />
 
       {/* 3-Step Process — Dark section */}
       <section
-        className="relative bg-brand-dark py-16 sm:py-20"
+        className="relative bg-brand-dark py-24 sm:py-32"
         style={{
           backgroundImage: "url(/images/dividers/wholevertical-01-mod.svg)",
           backgroundSize: "800px",
@@ -92,6 +96,12 @@ export default function LandingPageTemplate({
                 </p>
               </div>
             ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <LandingCtaButton className="inline-block rounded-[3px] bg-brand-red px-10 py-4 font-heading text-[31px] leading-[31px] font-normal uppercase tracking-normal text-white no-underline transition-colors hover:bg-red-700">
+              {ctaText}
+            </LandingCtaButton>
           </div>
         </Container>
       </section>

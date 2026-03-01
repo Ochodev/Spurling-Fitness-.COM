@@ -306,6 +306,24 @@ export default function SuccessStoriesCarousel({
     el.scrollBy({ left: amount, behavior: "smooth" });
   };
 
+  // Auto-scroll every 4 seconds, pause on hover/drag/modal
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused || selectedReview) return;
+    const timer = setInterval(() => {
+      const el = scrollRef.current;
+      if (!el) return;
+      const atEnd = el.scrollLeft >= el.scrollWidth - el.clientWidth - 10;
+      if (atEnd) {
+        el.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        el.scrollBy({ left: cardWidth, behavior: "smooth" });
+      }
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [paused, selectedReview, cardWidth]);
+
   const handleCardClick = (review: GoogleReview) => {
     // Don't open modal if user was dragging
     if (didDrag()) return;
@@ -365,7 +383,10 @@ export default function SuccessStoriesCarousel({
             onMouseDown={onMouseDown}
             onMouseMove={onMouseMove}
             onMouseUp={onMouseUp}
-            onMouseLeave={onMouseLeave}
+            onMouseLeave={() => { onMouseLeave(); setPaused(false); }}
+            onMouseEnter={() => setPaused(true)}
+            onTouchStart={() => setPaused(true)}
+            onTouchEnd={() => setPaused(false)}
             className="flex cursor-grab gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide touch-pan-x"
           >
             {reviews.map((review, idx) => (

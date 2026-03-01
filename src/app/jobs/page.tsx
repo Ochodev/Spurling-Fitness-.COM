@@ -2,7 +2,7 @@ import { generatePageMetadata } from "@/lib/metadata";
 import Hero from "@/components/sections/Hero";
 import Container from "@/components/layout/Container";
 import SuccessStoriesSection from "@/components/sections/SuccessStoriesWrapper";
-import ContactFooterSection from "@/components/sections/ContactFooterSection";
+import Script from "next/script";
 
 export const metadata = generatePageMetadata({
   title: "We're Hiring!",
@@ -524,18 +524,34 @@ export default function JobsPage() {
                 Please fill out the form below to be considered for an interview.
               </p>
             </div>
+
+            {/* GHL Job Application Form */}
+            <div className="mt-10">
+              <iframe
+                src="https://fitsndr.com/widget/form/TotSMUJuo81xf4HwOc8N"
+                style={{ width: "100%", height: "710px", border: "none", borderRadius: "4px" }}
+                id="inline-TotSMUJuo81xf4HwOc8N"
+                data-layout='{"id":"INLINE"}'
+                data-trigger-type="alwaysShow"
+                data-trigger-value=""
+                data-activation-type="alwaysActivated"
+                data-activation-value=""
+                data-deactivation-type="neverDeactivate"
+                data-deactivation-value=""
+                data-form-name="Job Application Form"
+                data-height="710"
+                data-layout-iframe-id="inline-TotSMUJuo81xf4HwOc8N"
+                data-form-id="TotSMUJuo81xf4HwOc8N"
+                title="Job Application Form"
+              />
+              <Script src="https://fitsndr.com/js/form_embed.js" strategy="lazyOnload" />
+            </div>
           </div>
         </Container>
       </section>
 
       {/* Success Stories */}
       <SuccessStoriesSection />
-
-      {/* Contact Footer */}
-      <ContactFooterSection
-        source="jobs-page"
-        formSubheading="Unleash your full potential and experience a life-changing transformation with our empowering fitness programs designed to help you achieve your dreams."
-      />
     </>
   );
 }

@@ -83,7 +83,7 @@ export const teamMembers: TeamMember[] = [
     id: "ayo-oni",
     name: "Ayo Oni",
     role: "Coach",
-    photo: "/images/team/ayo-oni.webp",
+    photo: "/images/team/ayo-oni.jpg",
     bio: "Georgia native who moved to Maine about a year ago with deep passion for exercise, health, and helping people. Background in sports and years as an avid gym-goer provided hands-on strength training, mobility, and sustainable habits experience. Helped clients improve form, increase strength, and build gym confidence. Currently studying Nutrition for a well-rounded health and fitness approach, connecting workouts with fueling. Excited joining Spurling's community valuing progress at every level.",
     certifications: [
       "Certified Personal Trainer",
@@ -93,10 +93,20 @@ export const teamMembers: TeamMember[] = [
     id: "arie-eiten",
     name: "Arie Eiten",
     role: "Coach",
-    photo: "/images/team/arie-eiten.webp",
+    photo: "/images/team/arie-eiten-v2.webp",
     bio: "Graduate from University of Southern Maine with Exercise Science degree and psychology minor. Interest originated from science love and passion for helping others, first exposed through Maine State Ballet. Now principal dancer with Maine State Ballet company, spending free time rehearsing and preparing performances. Cross-training and gym lifting maintained activity and achieved goals on and off stage. When not in gym, practices/performs ballet, fishes, enjoys outdoors, and follows Red Sox. Believes active well-rounded training creates healthier people and values supportive, relaxed environment helping others become healthiest, happiest, most active versions.",
     certifications: [
       "NSCA-CPT (Certified Personal Trainer)",
+    ],
+  },
+  {
+    id: "joseph-davenport",
+    name: "Joseph Davenport",
+    role: "Coach",
+    photo: "/images/team/joseph-davenport-v2.webp",
+    bio: "Joseph brings 21 years of U.S. Army service as a Supply Specialist, Drill Instructor, and H2F (Holistic Health and Fitness) Integrator. With a Bachelor's in Athletic Training and a background in rehabilitation and corrective exercise, he combines military discipline with movement science. His Mixed Martial Arts background emphasizes movement, power, and mental toughness. As a movement-focused coach, Joseph helps people build confidence and resilience. His mission: help people rise, move with confidence, think with strength, and build lasting resilience.",
+    certifications: [
+      "Bachelor's in Athletic Training",
     ],
   },
 ];
