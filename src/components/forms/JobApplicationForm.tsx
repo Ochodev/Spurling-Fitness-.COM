@@ -76,6 +76,8 @@ export default function JobApplicationForm({
           id="phone"
           name="phone"
           required
+          pattern="[\d\s\-\(\)\+]{10,}"
+          title="Please enter a valid phone number (at least 10 digits)"
           className="w-full rounded-md border border-gray-300 px-4 py-3 text-brand-gray outline-none transition-colors focus:border-brand-red focus:ring-1 focus:ring-brand-red"
         />
       </div>

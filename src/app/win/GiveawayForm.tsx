@@ -81,6 +81,8 @@ export default function GiveawayForm() {
           id="gw-phone"
           name="phone"
           required
+          pattern="[\d\s\-\(\)\+]{10,}"
+          title="Please enter a valid phone number (at least 10 digits)"
           className={inputStyles}
         />
       </div>
