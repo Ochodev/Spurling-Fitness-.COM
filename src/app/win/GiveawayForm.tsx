@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useState } from "react";
 import { usePostHog } from "posthog-js/react";
 import { getTrackingData } from "@/lib/tracking";
 
@@ -8,62 +8,46 @@ const inputStyles =
   "w-full rounded-md border border-gray-300 px-4 py-3.5 text-base font-medium text-brand-gray outline-none transition-colors focus:border-brand-red focus:ring-1 focus:ring-brand-red";
 
 export default function GiveawayForm() {
-  const formRef = useRef<HTMLFormElement>(null);
+  const [submitting, setSubmitting] = useState(false);
   const posthog = usePostHog();
 
-  useEffect(() => {
-    const form = formRef.current;
-    if (!form) return;
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSubmitting(true);
 
-    const tracking = getTrackingData();
-    Object.entries(tracking).forEach(([key, value]) => {
-      const input = form.querySelector<HTMLInputElement>(
-        `input[name="${key}"]`
-      );
-      if (input) input.value = value;
+    const formData = new FormData(e.currentTarget);
+    const data: Record<string, string> = {};
+    formData.forEach((value, key) => {
+      data[key] = value.toString();
     });
 
-    const pageUrlInput = form.querySelector<HTMLInputElement>(
-      'input[name="page_url"]'
-    );
-    if (pageUrlInput) pageUrlInput.value = window.location.href;
+    // Merge tracking data + metadata
+    Object.assign(data, getTrackingData());
+    data.source = "giveaway-page";
+    data.page_url = window.location.href;
 
-    const handleSubmit = () => {
-      const formData = new FormData(form);
-      const data: Record<string, string> = {};
-      formData.forEach((value, key) => {
-        data[key] = value.toString();
+    posthog.capture("form_submitted", data);
+
+    try {
+      const res = await fetch("/api/contact/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
       });
-      posthog.capture("form_submitted", data);
-    };
-    form.addEventListener("submit", handleSubmit);
-    return () => form.removeEventListener("submit", handleSubmit);
-  }, [posthog]);
+      if (!res.ok) throw new Error("Submission failed");
+    } catch {
+      // Still redirect on error to avoid blocking user
+    }
+
+    const location = data.location || "";
+    window.location.href = location ? `/thank-you-${location}/` : "/thank-you/";
+  };
 
   return (
     <form
-      ref={formRef}
-      action="/api/contact/"
-      method="POST"
+      onSubmit={handleSubmit}
       className="space-y-5"
     >
-      {/* Hidden tracking fields */}
-      <input type="hidden" name="source" value="giveaway-page" />
-      <input type="hidden" name="page_url" value="" />
-      <input type="hidden" name="utm_source" value="" />
-      <input type="hidden" name="utm_medium" value="" />
-      <input type="hidden" name="utm_campaign" value="" />
-      <input type="hidden" name="utm_content" value="" />
-      <input type="hidden" name="utm_term" value="" />
-      <input type="hidden" name="gclid" value="" />
-      <input type="hidden" name="fbclid" value="" />
-      <input type="hidden" name="msclkid" value="" />
-      <input type="hidden" name="adsu_cid" value="" />
-      <input type="hidden" name="adsu_asid" value="" />
-      <input type="hidden" name="adsu_aid" value="" />
-      <input type="hidden" name="landing_page" value="" />
-      <input type="hidden" name="referrer" value="" />
-
       {/* Full Name */}
       <div>
         <label
@@ -210,8 +194,9 @@ export default function GiveawayForm() {
 
       <input
         type="submit"
-        value="Enter the Giveaway"
-        className="w-full cursor-pointer rounded-[5px] bg-brand-red px-8 py-5 font-heading text-2xl font-bold uppercase tracking-wider text-white transition-colors hover:bg-brand-red-dark"
+        value={submitting ? "Submitting..." : "Enter the Giveaway"}
+        disabled={submitting}
+        className="w-full cursor-pointer rounded-[5px] bg-brand-red px-8 py-5 font-heading text-2xl font-bold uppercase tracking-wider text-white transition-colors hover:bg-brand-red-dark disabled:cursor-not-allowed disabled:opacity-70"
       />
     </form>
   );

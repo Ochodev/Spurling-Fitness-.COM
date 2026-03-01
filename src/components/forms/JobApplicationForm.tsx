@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useState } from "react";
 import { usePostHog } from "posthog-js/react";
+import { getTrackingData } from "@/lib/tracking";
 
 interface JobApplicationFormProps {
   className?: string;
@@ -10,34 +11,45 @@ interface JobApplicationFormProps {
 export default function JobApplicationForm({
   className = "",
 }: JobApplicationFormProps) {
-  const formRef = useRef<HTMLFormElement>(null);
+  const [submitting, setSubmitting] = useState(false);
   const posthog = usePostHog();
 
-  useEffect(() => {
-    const form = formRef.current;
-    if (!form) return;
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSubmitting(true);
 
-    const handleSubmit = () => {
-      const formData = new FormData(form);
-      const data: Record<string, string> = {};
-      formData.forEach((value, key) => {
-        data[key] = value.toString();
+    const formData = new FormData(e.currentTarget);
+    const data: Record<string, string> = {};
+    formData.forEach((value, key) => {
+      data[key] = value.toString();
+    });
+
+    // Merge tracking data + metadata
+    Object.assign(data, getTrackingData());
+    data.source = "jobs-page";
+    data.page_url = window.location.href;
+
+    posthog.capture("form_submitted", data);
+
+    try {
+      const res = await fetch("/api/contact/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
       });
-      posthog.capture("form_submitted", data);
-    };
-    form.addEventListener("submit", handleSubmit);
-    return () => form.removeEventListener("submit", handleSubmit);
-  }, [posthog]);
+      if (!res.ok) throw new Error("Submission failed");
+    } catch {
+      // Still redirect on error to avoid blocking user
+    }
+
+    window.location.href = "/thank-you-jobs/";
+  };
 
   return (
     <form
-      ref={formRef}
-      action="/api/contact/"
-      method="POST"
+      onSubmit={handleSubmit}
       className={`space-y-4 ${className}`}
     >
-      <input type="hidden" name="source" value="jobs-page" />
-
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label
@@ -139,8 +151,9 @@ export default function JobApplicationForm({
 
       <input
         type="submit"
-        value="Submit Application"
-        className="w-full cursor-pointer rounded-[5px] bg-brand-red px-8 py-4 font-heading text-[17px] font-semibold uppercase tracking-wider text-white transition-colors hover:bg-brand-red-dark"
+        value={submitting ? "Submitting..." : "Submit Application"}
+        disabled={submitting}
+        className="w-full cursor-pointer rounded-[5px] bg-brand-red px-8 py-4 font-heading text-[17px] font-semibold uppercase tracking-wider text-white transition-colors hover:bg-brand-red-dark disabled:cursor-not-allowed disabled:opacity-70"
       />
     </form>
   );
