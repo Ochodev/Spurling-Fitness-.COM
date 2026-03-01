@@ -81,7 +81,7 @@ export async function POST(request: Request) {
     if (!webhookUrl) {
       console.error(`No webhook configured for location: ${body.location}`);
       if (isFormEncoded) {
-        return NextResponse.redirect(new URL("/thank-you/", request.url));
+        return NextResponse.redirect(new URL("/thank-you/", request.url), 303);
       }
       return NextResponse.json(
         { error: "Server configuration error" },
@@ -110,7 +110,7 @@ export async function POST(request: Request) {
         redirectPath = `/thank-you-${location}/`;
       }
 
-      return NextResponse.redirect(new URL(redirectPath, request.url));
+      return NextResponse.redirect(new URL(redirectPath, request.url), 303);
     }
 
     return NextResponse.json({ success: true });
@@ -118,7 +118,7 @@ export async function POST(request: Request) {
     console.error("Contact form error:", error);
 
     if (isFormEncoded) {
-      return NextResponse.redirect(new URL("/thank-you/", request.url));
+      return NextResponse.redirect(new URL("/thank-you/", request.url), 303);
     }
 
     return NextResponse.json(
