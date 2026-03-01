@@ -84,24 +84,6 @@ export default function RootLayout({
           fbq('init', '${process.env.NEXT_PUBLIC_FB_PIXEL_ID || "639844379451697"}');
           fbq('track', 'PageView');`}
         </Script>
-        {/* GoHighLevel External Tracking — Kennebunk */}
-        <Script
-          src="https://link.msgsndr.com/js/external-tracking.js"
-          data-tracking-id="tk_62a0edaed1c846babd57de78c85a92d6"
-          strategy="afterInteractive"
-        />
-        {/* GoHighLevel External Tracking — Scarborough */}
-        <Script
-          src="https://linksb.spurlingfitness.com/js/external-tracking.js"
-          data-tracking-id="tk_16db3d7388d9492b966be245848b732b"
-          strategy="afterInteractive"
-        />
-        {/* GoHighLevel External Tracking — South Portland */}
-        <Script
-          src="https://links.spurlingfitness.com/js/external-tracking.js"
-          data-tracking-id="tk_8d56e87fbfa2429b8fe0abbd77894337"
-          strategy="afterInteractive"
-        />
         {/* JSON-LD Structured Data */}
         <OrganizationSchema />
       </head>
