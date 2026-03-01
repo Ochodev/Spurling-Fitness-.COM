@@ -4,6 +4,7 @@ const TRACKING_KEYS = [
   "utm_campaign",
   "utm_content",
   "utm_term",
+  "utm_keyword",
   "gclid",
   "fbclid",
   "msclkid",

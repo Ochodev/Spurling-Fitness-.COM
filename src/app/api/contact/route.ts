@@ -23,11 +23,21 @@ export async function POST(request: Request) {
       body = await request.json();
     }
 
-    // Split fullName into first/last if not already provided
-    if (body.fullName && !body.firstName) {
-      const parts = body.fullName.trim().split(/\s+/);
-      body.firstName = parts[0] || "";
-      body.lastName = parts.slice(1).join(" ") || "";
+    // Map field names to GHL standard contact properties
+    if (body.fullName) {
+      body.name = body.fullName.trim();
+      if (!body.firstName) {
+        const parts = body.name.split(/\s+/);
+        body.firstName = parts[0] || "";
+        body.lastName = parts.slice(1).join(" ") || "";
+      }
+      delete body.fullName;
+    }
+
+    // Map utm_term → utm_keyword (GHL standard)
+    if (body.utm_term) {
+      body.utm_keyword = body.utm_term;
+      delete body.utm_term;
     }
 
     const webhookUrl =
