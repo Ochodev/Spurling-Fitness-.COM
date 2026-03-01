@@ -69,7 +69,7 @@ export default function RootLayout({
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
           j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-          })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GTM_ID || "GTM-KZMTJ6P4"}');`}
+          })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GTM_ID || "GTM-W8H8CCQG"}');`}
         </Script>
         {/* Facebook Pixel */}
         <Script id="fb-pixel" strategy="afterInteractive">
@@ -93,7 +93,7 @@ export default function RootLayout({
         {/* GTM noscript */}
         <noscript>
           <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${process.env.NEXT_PUBLIC_GTM_ID || "GTM-KZMTJ6P4"}`}
+            src={`https://www.googletagmanager.com/ns.html?id=${process.env.NEXT_PUBLIC_GTM_ID || "GTM-W8H8CCQG"}`}
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}
