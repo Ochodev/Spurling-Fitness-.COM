@@ -6,6 +6,107 @@ const WEBHOOK_URLS: Record<string, string | undefined> = {
   "south-portland": process.env.WEBHOOK_URL_SOUTH_PORTLAND,
 };
 
+const SEARCH_ENGINES = [
+  "google.com",
+  "bing.com",
+  "yahoo.com",
+  "duckduckgo.com",
+  "baidu.com",
+  "yandex.com",
+];
+
+const SOCIAL_PLATFORMS = [
+  "facebook.com",
+  "instagram.com",
+  "twitter.com",
+  "x.com",
+  "linkedin.com",
+  "tiktok.com",
+  "pinterest.com",
+  "youtube.com",
+  "reddit.com",
+  "threads.net",
+];
+
+const AI_PLATFORMS = [
+  "chatgpt.com",
+  "chat.openai.com",
+  "perplexity.ai",
+  "claude.ai",
+  "gemini.google.com",
+  "copilot.microsoft.com",
+  "you.com",
+  "phind.com",
+  "kagi.com",
+];
+
+const SOCIAL_AD_SOURCES = [
+  "facebook",
+  "fb",
+  "instagram",
+  "ig",
+  "meta",
+  "tiktok",
+  "linkedin",
+  "pinterest",
+  "twitter",
+  "x",
+  "snapchat",
+  "reddit",
+  "youtube",
+];
+
+interface SourceDetectionInput {
+  utm_source: string;
+  utm_medium: string;
+  utm_campaign: string;
+  referrer: string;
+  gclid: string;
+  fbclid: string;
+  msclkid: string;
+}
+
+function detectSessionSource(input: SourceDetectionInput): string {
+  const utmSource = input.utm_source.toLowerCase();
+  const utmMedium = input.utm_medium.toLowerCase();
+  const hasUtm = utmSource || utmMedium || input.utm_campaign;
+  const hasClickId = input.gclid || input.fbclid || input.msclkid;
+  const referrer = input.referrer.toLowerCase();
+
+  const isPaid =
+    hasClickId || (hasUtm && utmMedium.match(/cpc|ppc|paid|ad|display/));
+
+  if (isPaid) {
+    const isSocial =
+      !!input.fbclid ||
+      SOCIAL_AD_SOURCES.some(
+        (s) => utmSource.includes(s) || utmMedium.includes(s)
+      );
+    return isSocial ? "Paid Social" : "Paid Search";
+  }
+
+  if (hasUtm) {
+    if (utmMedium.includes("social")) return "Paid Social";
+    if (utmMedium.includes("email")) return "Email";
+    return "Referral";
+  }
+
+  if (referrer) {
+    if (AI_PLATFORMS.some((ai) => referrer.includes(ai))) {
+      return "AI";
+    }
+    if (SEARCH_ENGINES.some((engine) => referrer.includes(engine))) {
+      return "Organic Search";
+    }
+    if (SOCIAL_PLATFORMS.some((platform) => referrer.includes(platform))) {
+      return "Organic Social";
+    }
+    return "Referral";
+  }
+
+  return "Direct";
+}
+
 export async function POST(request: Request) {
   const contentType = request.headers.get("content-type") || "";
   const isFormEncoded = !contentType.includes("application/json");
@@ -46,11 +147,18 @@ export async function POST(request: Request) {
       delete body.landing_page;
     }
 
-    // Map source → sessionSource (GHL Last Attribution: Session source)
-    if (body.source) {
-      body.sessionSource = body.source;
-      delete body.source;
-    }
+    // Auto-detect traffic source before consolidating click IDs
+    const internalSource = body.source || "";
+    delete body.source;
+    body.sessionSource = detectSessionSource({
+      utm_source: body.utm_source || "",
+      utm_medium: body.utm_medium || "",
+      utm_campaign: body.utm_campaign || "",
+      referrer: body.referrer || "",
+      gclid: body.gclid || "",
+      fbclid: body.fbclid || "",
+      msclkid: body.msclkid || "",
+    });
 
     // Consolidate click IDs → clickId (GHL Last Attribution: Ad click ID)
     const clickId = body.gclid || body.fbclid || body.msclkid;
@@ -101,10 +209,9 @@ export async function POST(request: Request) {
 
     if (isFormEncoded) {
       const location = body.location || "";
-      const source = body.sessionSource || "";
       let redirectPath = "/thank-you/";
 
-      if (source === "jobs-page") {
+      if (internalSource === "jobs-page") {
         redirectPath = "/thank-you-jobs/";
       } else if (location) {
         redirectPath = `/thank-you-${location}/`;
