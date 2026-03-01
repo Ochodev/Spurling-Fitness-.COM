@@ -29,7 +29,28 @@ export default function JobApplicationForm({
     data.source = "jobs-page";
     data.page_url = window.location.href;
 
-    posthog.capture("form_submitted", data);
+    posthog.capture("form_submitted", {
+      ...data,
+      $set: {
+        email: data.email,
+        phone: data.phone,
+        name: data.firstName && data.lastName ? `${data.firstName} ${data.lastName}` : data.fullName,
+        location: data.location,
+        source: data.source,
+        utm_source: data.utm_source,
+        utm_medium: data.utm_medium,
+        utm_campaign: data.utm_campaign,
+        utm_content: data.utm_content,
+        utm_term: data.utm_term,
+        utm_matchtype: data.utm_matchtype,
+        gclid: data.gclid,
+        fbclid: data.fbclid,
+        msclkid: data.msclkid,
+        landing_page: data.landing_page,
+        referrer: data.referrer,
+        page_url: data.page_url,
+      },
+    });
 
     try {
       const res = await fetch("/api/contact/", {
