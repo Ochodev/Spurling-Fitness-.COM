@@ -177,7 +177,7 @@ export default function GiveawayForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="w-full cursor-pointer rounded-[5px] bg-brand-red px-8 py-5 font-heading text-xl font-bold uppercase tracking-wider text-white transition-colors hover:bg-brand-red-dark disabled:opacity-60 disabled:cursor-not-allowed"
+        className="w-full cursor-pointer rounded-[5px] bg-brand-red px-8 py-5 font-heading text-2xl font-bold uppercase tracking-wider text-white transition-colors hover:bg-brand-red-dark disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {status === "loading" ? "Submitting..." : "Enter the Giveaway"}
       </button>

@@ -8,6 +8,7 @@ import { fetchAllLocationReviews } from "@/lib/google-reviews";
 import { videoTestimonials } from "@/data/testimonials";
 import GiveawayCTA from "./GiveawayCTA";
 import GiveawayForm from "./GiveawayForm";
+import CountdownTimer from "./CountdownTimer";
 
 export const metadata = generatePageMetadata({
   title: "Win 3 Free Months of Personal Training",
@@ -104,8 +105,15 @@ export default async function GiveawayPage() {
             <span className="text-brand-red">$1,200 value</span>.
           </p>
 
-          <div className="mt-10 mb-8">
-            <GiveawayCTA className="mx-auto max-w-xl" />
+          <div className="mt-10 mb-6">
+            <GiveawayCTA className="mx-auto max-w-md" />
+          </div>
+
+          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-white/70">
+            Drawing ends in
+          </p>
+          <div className="mb-12">
+            <CountdownTimer />
           </div>
         </Container>
       </section>
@@ -237,7 +245,7 @@ export default async function GiveawayPage() {
           </p>
 
           <div className="mt-10 text-center">
-            <GiveawayCTA className="mx-auto max-w-xl" />
+            <GiveawayCTA className="mx-auto max-w-md" />
           </div>
         </Container>
       </section>
@@ -277,7 +285,7 @@ export default async function GiveawayPage() {
           </div>
 
           <div className="mt-10 text-center">
-            <GiveawayCTA className="mx-auto max-w-xl" />
+            <GiveawayCTA className="mx-auto max-w-md" />
           </div>
         </Container>
       </section>

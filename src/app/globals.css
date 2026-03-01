@@ -54,3 +54,14 @@ p, li, span, a, label, input, textarea, select, button {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
