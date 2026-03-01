@@ -1,93 +1,105 @@
 "use client";
 
-import { useState, FormEvent } from "react";
-import { usePostHog } from "posthog-js/react";
+import { useEffect, useRef } from "react";
 import { getTrackingData } from "@/lib/tracking";
 
 const inputStyles =
   "w-full rounded-md border border-gray-300 px-4 py-3.5 text-base font-medium text-brand-gray outline-none transition-colors focus:border-brand-red focus:ring-1 focus:ring-brand-red";
 
 export default function GiveawayForm() {
-  const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
-  const posthog = usePostHog();
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setStatus("loading");
+  useEffect(() => {
+    const form = formRef.current;
+    if (!form) return;
 
-    const formData = new FormData(e.currentTarget);
     const tracking = getTrackingData();
-    const fullName = (formData.get("fullName") as string).trim();
-    const nameParts = fullName.split(/\s+/);
-    const firstName = nameParts[0] || "";
-    const lastName = nameParts.slice(1).join(" ") || "";
+    Object.entries(tracking).forEach(([key, value]) => {
+      const input = form.querySelector<HTMLInputElement>(
+        `input[name="${key}"]`
+      );
+      if (input) input.value = value;
+    });
 
-    const data = {
-      fullName,
-      firstName,
-      lastName,
-      email: formData.get("email"),
-      phone: formData.get("phone"),
-      location: formData.get("location"),
-      contactPreference: formData.get("contactPreference"),
-      whyWin: formData.get("whyWin"),
-      source: "giveaway-page",
-      page_url: window.location.href,
-      ...tracking,
-    };
-
-    try {
-      const res = await fetch("/api/contact/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      if (!res.ok) throw new Error("Failed to submit");
-
-      posthog.identify(data.email as string, {
-        name: fullName,
-        phone: data.phone as string,
-      });
-      posthog.capture("giveaway_entry_submitted", {
-        source: "giveaway-page",
-        location: data.location,
-        page_url: data.page_url,
-      });
-
-      const location = data.location as string;
-      window.location.href = location
-        ? `/thank-you-${location}/`
-        : "/thank-you/";
-    } catch {
-      setStatus("error");
-    }
-  };
+    const pageUrlInput = form.querySelector<HTMLInputElement>(
+      'input[name="page_url"]'
+    );
+    if (pageUrlInput) pageUrlInput.value = window.location.href;
+  }, []);
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form
+      ref={formRef}
+      action="/api/contact/"
+      method="POST"
+      className="space-y-5"
+    >
+      {/* Hidden tracking fields */}
+      <input type="hidden" name="source" value="giveaway-page" />
+      <input type="hidden" name="page_url" value="" />
+      <input type="hidden" name="utm_source" value="" />
+      <input type="hidden" name="utm_medium" value="" />
+      <input type="hidden" name="utm_campaign" value="" />
+      <input type="hidden" name="utm_content" value="" />
+      <input type="hidden" name="utm_term" value="" />
+      <input type="hidden" name="gclid" value="" />
+      <input type="hidden" name="fbclid" value="" />
+      <input type="hidden" name="msclkid" value="" />
+      <input type="hidden" name="adsu_cid" value="" />
+      <input type="hidden" name="adsu_asid" value="" />
+      <input type="hidden" name="adsu_aid" value="" />
+      <input type="hidden" name="landing_page" value="" />
+      <input type="hidden" name="referrer" value="" />
+
       {/* Full Name */}
       <div>
-        <label htmlFor="gw-fullName" className="mb-1.5 block text-base font-bold text-brand-dark">
+        <label
+          htmlFor="gw-fullName"
+          className="mb-1.5 block text-base font-bold text-brand-dark"
+        >
           Full Name *
         </label>
-        <input type="text" id="gw-fullName" name="fullName" required className={inputStyles} />
+        <input
+          type="text"
+          id="gw-fullName"
+          name="fullName"
+          required
+          className={inputStyles}
+        />
       </div>
 
       {/* Phone */}
       <div>
-        <label htmlFor="gw-phone" className="mb-1.5 block text-base font-bold text-brand-dark">
+        <label
+          htmlFor="gw-phone"
+          className="mb-1.5 block text-base font-bold text-brand-dark"
+        >
           Phone *
         </label>
-        <input type="tel" id="gw-phone" name="phone" required className={inputStyles} />
+        <input
+          type="tel"
+          id="gw-phone"
+          name="phone"
+          required
+          className={inputStyles}
+        />
       </div>
 
       {/* Email */}
       <div>
-        <label htmlFor="gw-email" className="mb-1.5 block text-base font-bold text-brand-dark">
+        <label
+          htmlFor="gw-email"
+          className="mb-1.5 block text-base font-bold text-brand-dark"
+        >
           Email *
         </label>
-        <input type="email" id="gw-email" name="email" required className={inputStyles} />
+        <input
+          type="email"
+          id="gw-email"
+          name="email"
+          required
+          className={inputStyles}
+        />
       </div>
 
       {/* Location */}
@@ -101,7 +113,10 @@ export default function GiveawayForm() {
             { value: "scarborough", label: "Scarborough" },
             { value: "south-portland", label: "South Portland" },
           ].map((loc) => (
-            <label key={loc.value} className="flex items-center gap-2 cursor-pointer">
+            <label
+              key={loc.value}
+              className="flex items-center gap-2 cursor-pointer"
+            >
               <input
                 type="radio"
                 name="location"
@@ -109,7 +124,9 @@ export default function GiveawayForm() {
                 required
                 className="h-4 w-4 border-gray-300 text-brand-red accent-brand-red"
               />
-              <span className="text-base font-medium text-brand-gray">{loc.label}</span>
+              <span className="text-base font-medium text-brand-gray">
+                {loc.label}
+              </span>
             </label>
           ))}
         </div>
@@ -122,7 +139,10 @@ export default function GiveawayForm() {
         </p>
         <div className="space-y-2">
           {["Phone Call", "Text Message", "Email"].map((pref) => (
-            <label key={pref} className="flex items-center gap-2 cursor-pointer">
+            <label
+              key={pref}
+              className="flex items-center gap-2 cursor-pointer"
+            >
               <input
                 type="radio"
                 name="contactPreference"
@@ -130,7 +150,9 @@ export default function GiveawayForm() {
                 required
                 className="h-4 w-4 border-gray-300 text-brand-red accent-brand-red"
               />
-              <span className="text-base font-medium text-brand-gray">{pref}</span>
+              <span className="text-base font-medium text-brand-gray">
+                {pref}
+              </span>
             </label>
           ))}
         </div>
@@ -138,7 +160,10 @@ export default function GiveawayForm() {
 
       {/* Why Win */}
       <div>
-        <label htmlFor="gw-whyWin" className="mb-1.5 block text-base font-bold text-brand-dark">
+        <label
+          htmlFor="gw-whyWin"
+          className="mb-1.5 block text-base font-bold text-brand-dark"
+        >
           What Would It Mean to You to Win This? *
         </label>
         <textarea
@@ -168,19 +193,11 @@ export default function GiveawayForm() {
         </label>
       </div>
 
-      {status === "error" && (
-        <p className="text-sm text-red-600">
-          Something went wrong. Please try again or call us at 207-467-3757.
-        </p>
-      )}
-
-      <button
+      <input
         type="submit"
-        disabled={status === "loading"}
-        className="w-full cursor-pointer rounded-[5px] bg-brand-red px-8 py-5 font-heading text-2xl font-bold uppercase tracking-wider text-white transition-colors hover:bg-brand-red-dark disabled:opacity-60 disabled:cursor-not-allowed"
-      >
-        {status === "loading" ? "Submitting..." : "Enter the Giveaway"}
-      </button>
+        value="Enter the Giveaway"
+        className="w-full cursor-pointer rounded-[5px] bg-brand-red px-8 py-5 font-heading text-2xl font-bold uppercase tracking-wider text-white transition-colors hover:bg-brand-red-dark"
+      />
     </form>
   );
 }

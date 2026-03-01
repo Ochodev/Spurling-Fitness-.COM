@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, FormEvent } from "react";
-import { usePostHog } from "posthog-js/react";
+import { useEffect, useRef } from "react";
 import { getTrackingData } from "@/lib/tracking";
 
 interface ContactFormProps {
@@ -17,65 +16,56 @@ export default function ContactForm({
   submitLabel = "Get Started",
   className = "",
 }: ContactFormProps) {
-  const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
-  const posthog = usePostHog();
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setStatus("loading");
+  useEffect(() => {
+    const form = formRef.current;
+    if (!form) return;
 
-    const formData = new FormData(e.currentTarget);
     const tracking = getTrackingData();
-    const fullName = (formData.get("fullName") as string).trim();
-    const nameParts = fullName.split(/\s+/);
-    const firstName = nameParts[0] || "";
-    const lastName = nameParts.slice(1).join(" ") || "";
+    Object.entries(tracking).forEach(([key, value]) => {
+      const input = form.querySelector<HTMLInputElement>(
+        `input[name="${key}"]`
+      );
+      if (input) input.value = value;
+    });
 
-    const data = {
-      fullName,
-      firstName,
-      lastName,
-      email: formData.get("email"),
-      phone: formData.get("phone"),
-      location: formData.get("location"),
-      source,
-      page_url: window.location.href,
-      ...tracking,
-    };
-
-    try {
-      const res = await fetch("/api/contact/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      if (!res.ok) throw new Error("Failed to submit");
-
-      posthog.identify(data.email as string, {
-        name: fullName,
-        phone: data.phone as string,
-      });
-      posthog.capture("lead_form_submitted", {
-        source,
-        location: data.location,
-        page_url: data.page_url,
-      });
-
-      const location = data.location as string;
-      window.location.href = location
-        ? `/thank-you-${location}/`
-        : "/thank-you/";
-    } catch {
-      setStatus("error");
-    }
-  };
+    const pageUrlInput = form.querySelector<HTMLInputElement>(
+      'input[name="page_url"]'
+    );
+    if (pageUrlInput) pageUrlInput.value = window.location.href;
+  }, []);
 
   return (
-    <form onSubmit={handleSubmit} className={`space-y-5 ${className}`}>
+    <form
+      ref={formRef}
+      action="/api/contact/"
+      method="POST"
+      className={`space-y-5 ${className}`}
+    >
+      {/* Hidden tracking fields */}
+      <input type="hidden" name="source" value={source} />
+      <input type="hidden" name="page_url" value="" />
+      <input type="hidden" name="utm_source" value="" />
+      <input type="hidden" name="utm_medium" value="" />
+      <input type="hidden" name="utm_campaign" value="" />
+      <input type="hidden" name="utm_content" value="" />
+      <input type="hidden" name="utm_term" value="" />
+      <input type="hidden" name="gclid" value="" />
+      <input type="hidden" name="fbclid" value="" />
+      <input type="hidden" name="msclkid" value="" />
+      <input type="hidden" name="adsu_cid" value="" />
+      <input type="hidden" name="adsu_asid" value="" />
+      <input type="hidden" name="adsu_aid" value="" />
+      <input type="hidden" name="landing_page" value="" />
+      <input type="hidden" name="referrer" value="" />
+
       {/* Full Name */}
       <div>
-        <label htmlFor="fullName" className="mb-1 block text-sm font-medium text-brand-gray">
+        <label
+          htmlFor="fullName"
+          className="mb-1 block text-sm font-medium text-brand-gray"
+        >
           Full Name *
         </label>
         <input
@@ -89,7 +79,10 @@ export default function ContactForm({
 
       {/* Phone */}
       <div>
-        <label htmlFor="phone" className="mb-1 block text-sm font-medium text-brand-gray">
+        <label
+          htmlFor="phone"
+          className="mb-1 block text-sm font-medium text-brand-gray"
+        >
           Phone *
         </label>
         <input
@@ -103,7 +96,10 @@ export default function ContactForm({
 
       {/* Email */}
       <div>
-        <label htmlFor="email" className="mb-1 block text-sm font-medium text-brand-gray">
+        <label
+          htmlFor="email"
+          className="mb-1 block text-sm font-medium text-brand-gray"
+        >
           Email *
         </label>
         <input
@@ -126,7 +122,10 @@ export default function ContactForm({
             { value: "scarborough", label: "Scarborough" },
             { value: "south-portland", label: "South Portland" },
           ].map((loc) => (
-            <label key={loc.value} className="flex items-center gap-2 cursor-pointer">
+            <label
+              key={loc.value}
+              className="flex items-center gap-2 cursor-pointer"
+            >
               <input
                 type="radio"
                 name="location"
@@ -159,19 +158,11 @@ export default function ContactForm({
         </label>
       </div>
 
-      {status === "error" && (
-        <p className="text-sm text-red-600">
-          Something went wrong. Please try again or call us at 207-467-3757.
-        </p>
-      )}
-
-      <button
+      <input
         type="submit"
-        disabled={status === "loading"}
-        className="w-full cursor-pointer rounded-[5px] bg-brand-red px-8 py-4 font-heading text-[17px] font-semibold uppercase tracking-wider text-white transition-colors hover:bg-brand-red-dark disabled:opacity-60 disabled:cursor-not-allowed"
-      >
-        {status === "loading" ? "Sending..." : submitLabel}
-      </button>
+        value={submitLabel}
+        className="w-full cursor-pointer rounded-[5px] bg-brand-red px-8 py-4 font-heading text-[17px] font-semibold uppercase tracking-wider text-white transition-colors hover:bg-brand-red-dark"
+      />
     </form>
   );
 }

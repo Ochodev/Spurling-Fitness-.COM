@@ -1,71 +1,26 @@
 "use client";
 
-import { useState, FormEvent } from "react";
-import { usePostHog } from "posthog-js/react";
-
 interface JobApplicationFormProps {
   className?: string;
 }
 
-export default function JobApplicationForm({ className = "" }: JobApplicationFormProps) {
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const posthog = usePostHog();
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setStatus("loading");
-
-    const formData = new FormData(e.currentTarget);
-    const data = {
-      firstName: formData.get("firstName"),
-      lastName: formData.get("lastName"),
-      email: formData.get("email"),
-      phone: formData.get("phone"),
-      experience: formData.get("experience"),
-      whySpurling: formData.get("whySpurling"),
-      source: "jobs-page",
-    };
-
-    try {
-      const res = await fetch("/api/contact/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      if (!res.ok) throw new Error("Failed to submit");
-
-      posthog.identify(data.email as string, {
-        first_name: data.firstName as string,
-        last_name: data.lastName as string,
-        phone: data.phone as string,
-      });
-      posthog.capture("job_application_submitted");
-
-      setStatus("success");
-    } catch {
-      setStatus("error");
-    }
-  };
-
-  if (status === "success") {
-    return (
-      <div className={`rounded-lg bg-green-50 p-8 text-center ${className}`}>
-        <h3 className="font-heading text-2xl font-semibold text-green-800">
-          Application Received!
-        </h3>
-        <p className="mt-2 text-green-700">
-          Thank you for your interest. We&apos;ll be in touch soon.
-        </p>
-      </div>
-    );
-  }
-
+export default function JobApplicationForm({
+  className = "",
+}: JobApplicationFormProps) {
   return (
-    <form onSubmit={handleSubmit} className={`space-y-4 ${className}`}>
+    <form
+      action="/api/contact/"
+      method="POST"
+      className={`space-y-4 ${className}`}
+    >
+      <input type="hidden" name="source" value="jobs-page" />
+
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="firstName" className="mb-1 block text-sm font-medium text-brand-gray">
+          <label
+            htmlFor="firstName"
+            className="mb-1 block text-sm font-medium text-brand-gray"
+          >
             First Name *
           </label>
           <input
@@ -77,7 +32,10 @@ export default function JobApplicationForm({ className = "" }: JobApplicationFor
           />
         </div>
         <div>
-          <label htmlFor="lastName" className="mb-1 block text-sm font-medium text-brand-gray">
+          <label
+            htmlFor="lastName"
+            className="mb-1 block text-sm font-medium text-brand-gray"
+          >
             Last Name *
           </label>
           <input
@@ -91,7 +49,10 @@ export default function JobApplicationForm({ className = "" }: JobApplicationFor
       </div>
 
       <div>
-        <label htmlFor="email" className="mb-1 block text-sm font-medium text-brand-gray">
+        <label
+          htmlFor="email"
+          className="mb-1 block text-sm font-medium text-brand-gray"
+        >
           Email *
         </label>
         <input
@@ -104,7 +65,10 @@ export default function JobApplicationForm({ className = "" }: JobApplicationFor
       </div>
 
       <div>
-        <label htmlFor="phone" className="mb-1 block text-sm font-medium text-brand-gray">
+        <label
+          htmlFor="phone"
+          className="mb-1 block text-sm font-medium text-brand-gray"
+        >
           Phone *
         </label>
         <input
@@ -117,7 +81,10 @@ export default function JobApplicationForm({ className = "" }: JobApplicationFor
       </div>
 
       <div>
-        <label htmlFor="experience" className="mb-1 block text-sm font-medium text-brand-gray">
+        <label
+          htmlFor="experience"
+          className="mb-1 block text-sm font-medium text-brand-gray"
+        >
           Relevant Experience *
         </label>
         <textarea
@@ -130,7 +97,10 @@ export default function JobApplicationForm({ className = "" }: JobApplicationFor
       </div>
 
       <div>
-        <label htmlFor="whySpurling" className="mb-1 block text-sm font-medium text-brand-gray">
+        <label
+          htmlFor="whySpurling"
+          className="mb-1 block text-sm font-medium text-brand-gray"
+        >
           Why Spurling? *
         </label>
         <textarea
@@ -142,19 +112,11 @@ export default function JobApplicationForm({ className = "" }: JobApplicationFor
         />
       </div>
 
-      {status === "error" && (
-        <p className="text-sm text-red-600">
-          Something went wrong. Please try again or email us at info@spurlingfitness.com.
-        </p>
-      )}
-
-      <button
+      <input
         type="submit"
-        disabled={status === "loading"}
-        className="w-full cursor-pointer rounded-[5px] bg-brand-red px-8 py-4 font-heading text-[17px] font-semibold uppercase tracking-wider text-white transition-colors hover:bg-brand-red-dark disabled:opacity-60 disabled:cursor-not-allowed"
-      >
-        {status === "loading" ? "Submitting..." : "Submit Application"}
-      </button>
+        value="Submit Application"
+        className="w-full cursor-pointer rounded-[5px] bg-brand-red px-8 py-4 font-heading text-[17px] font-semibold uppercase tracking-wider text-white transition-colors hover:bg-brand-red-dark"
+      />
     </form>
   );
 }
